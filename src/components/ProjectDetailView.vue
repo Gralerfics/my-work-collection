@@ -60,8 +60,8 @@ const relatedProjects = computed(() =>
 
     <section class="editorial-section">
       <div class="section-label">
-        <p class="eyebrow">Details</p>
-        <h2>Project Information</h2>
+        <p class="eyebrow">Project</p>
+        <h2>Details</h2>
       </div>
       <div class="section-body">
         <component :is="currentProject.pageComponent" />
