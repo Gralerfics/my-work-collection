@@ -18,27 +18,42 @@ defineProps({
 
 const emit = defineEmits(['navigate'])
 const isPinned = ref(false)
+const topSentinel = ref(null)
+let observer = null
 
 const items = [
   { key: 'home', label: 'Home' },
   { key: 'resume', label: 'Resume' },
 ]
 
-const syncPinnedState = () => {
-  isPinned.value = window.scrollY > 8
-}
-
 onMounted(() => {
-  window.addEventListener('scroll', syncPinnedState, { passive: true })
-  syncPinnedState()
+  // Prevent browser scroll restoration from nudging the page on refresh.
+  if ('scrollRestoration' in window.history) {
+    window.history.scrollRestoration = 'manual'
+  }
+
+  observer = new IntersectionObserver(
+    ([entry]) => {
+      isPinned.value = !entry.isIntersecting
+    },
+    {
+      threshold: 0,
+      rootMargin: '-1px 0px 0px 0px',
+    },
+  )
+
+  if (topSentinel.value) {
+    observer.observe(topSentinel.value)
+  }
 })
 
 onBeforeUnmount(() => {
-  window.removeEventListener('scroll', syncPinnedState)
+  observer?.disconnect()
 })
 </script>
 
 <template>
+  <div ref="topSentinel" class="site-header__sentinel" aria-hidden="true"></div>
   <header class="site-header" :class="{ 'is-pinned': isPinned }">
     <div class="site-header__inner">
       <div class="site-header__main">

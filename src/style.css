@@ -84,6 +84,15 @@ img {
   opacity: 0.8;
 }
 
+.site-header__sentinel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 1px;
+  pointer-events: none;
+}
+
 .site-header {
   position: sticky;
   top: 0;
