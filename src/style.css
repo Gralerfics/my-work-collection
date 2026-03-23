@@ -845,6 +845,31 @@ h3 {
   max-width: 42rem;
 }
 
+.project-card__summary-wrap {
+  position: relative;
+  min-width: 0;
+  align-self: stretch;
+}
+
+.project-card__summary-wrap .project-card__summary {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+}
+
+.project-card__more {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  padding-left: 0.65rem;
+  color: var(--accent);
+  font-size: 0.84rem;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.96) 30%);
+  white-space: nowrap;
+}
+
 .text-link {
   margin-top: 0;
   padding: 0;

@@ -17,6 +17,8 @@ const emit = defineEmits(['open-project'])
 const activeTab = ref('All')
 const searchQuery = ref('')
 
+const needsMoreInfoCue = (text) => text && text.length > 150
+
 const availableTabs = computed(() => ['All', ...props.projectTabs])
 
 const filteredProjects = computed(() => {
@@ -29,7 +31,7 @@ const filteredProjects = computed(() => {
       !query
       || project.title.toLowerCase().includes(query)
       || project.subtitle.toLowerCase().includes(query)
-      || project.summary.toLowerCase().includes(query)
+      || project.intro.toLowerCase().includes(query)
       || project.tags.some((tag) => tag.toLowerCase().includes(query))
 
     return matchesTab && matchesQuery
@@ -76,7 +78,7 @@ const filteredProjects = computed(() => {
               v-model="searchQuery"
               class="projects-search__input"
               type="text"
-              placeholder="Search by title, summary, or tag"
+              placeholder="Search by title, intro, or tag"
             />
           </label>
         </div>
@@ -105,7 +107,13 @@ const filteredProjects = computed(() => {
                   <h3>{{ project.title }}</h3>
                   <p class="project-card__subtitle">{{ project.subtitle }}</p>
                 </div>
-                <p class="project-card__summary">{{ project.summary }}</p>
+                <div class="project-card__summary-wrap">
+                  <p class="project-card__summary">{{ project.intro }}</p>
+<!--                  <span v-if="needsMoreInfoCue(project.intro)" class="project-card__more">-->
+                  <span v-if="needsMoreInfoCue(project.intro)" class="project-card__more">
+                    More Info
+                  </span>
+                </div>
               </div>
             </button>
           </div>

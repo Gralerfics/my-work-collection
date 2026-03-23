@@ -5,8 +5,7 @@
   "groups": ["Robotics", "Embedded"],
   "status": "Temporarily Private",
   "repo": "https://github.com/Gralerfics/pf-drive",
-  "summary": "An Ackermann-platform driving project built on a bio-inspired teach-and-repeat baseline, with emphasis on stable route repetition.",
-  "intro": "A longer-term robotics direction centered on taking route repetition methods from papers to real vehicle platforms.",
+  "intro": "An Ackermann-platform driving project built on a bio-inspired teach-and-repeat baseline, with emphasis on stable route repetition.",
   "tags": ["Robotics", "Autonomous Driving", "Control", "Perception"],
   "priority": 100
 }
