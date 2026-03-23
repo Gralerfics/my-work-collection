@@ -43,21 +43,22 @@ const relatedProjects = computed(() =>
 
                 <p class="project-hero__summary">{{ currentProject.intro }}</p>
 
-                <div class="project-hero__actions">
-                    <a
-                        v-if="currentProject.repo"
-                        class="button button--primary"
-                        :href="currentProject.repo"
+        <div class="project-hero__actions">
+          <a
+            v-if="currentProject.repo"
+            class="button button--primary"
+            :href="currentProject.repo"
                         target="_blank"
                         rel="noreferrer"
-                    >
-                        Open Repository
-                    </a>
-                    <span v-if="currentProject.time" class="status-pill">{{ currentProject.time }}</span>
-                    <span v-if="currentProject.status" class="status-pill">{{ currentProject.status }}</span>
-                </div>
-            </div>
-        </section>
+          >
+            Open Repository
+          </a>
+          <span v-if="currentProject.time" class="status-pill">{{ currentProject.time }}</span>
+          <span v-if="currentProject.status" class="status-pill">{{ currentProject.status }}</span>
+          <span v-if="currentProject.collaboration" class="status-pill">{{ currentProject.collaboration }}</span>
+        </div>
+      </div>
+    </section>
 
         <section class="editorial-section">
             <div class="section-label">
