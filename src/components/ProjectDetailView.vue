@@ -21,12 +21,19 @@ const relatedProjects = computed(() =>
 
 <template>
   <div class="page page-project">
+    <section v-if="currentProject.cover" class="project-cover">
+      <img
+        class="project-cover__image"
+        :src="currentProject.cover"
+        :alt="currentProject.title"
+      />
+    </section>
+
     <section class="project-hero">
       <div class="project-hero__body">
         <p class="eyebrow">{{ currentProject.groups.join(' / ') }} / {{ currentProject.period }}</p>
         <h1>{{ currentProject.title }}</h1>
         <p class="project-hero__subtitle">{{ currentProject.subtitle }}</p>
-        <p class="project-hero__summary">{{ currentProject.intro }}</p>
 
         <div class="tag-row">
           <span v-for="tag in currentProject.tags" :key="tag" class="tag">
@@ -34,20 +41,21 @@ const relatedProjects = computed(() =>
           </span>
         </div>
 
+        <p class="project-hero__summary">{{ currentProject.intro }}</p>
+
         <div class="project-hero__actions">
-          <a class="button button--primary" :href="currentProject.repo" target="_blank" rel="noreferrer">
+          <a
+            v-if="currentProject.repo"
+            class="button button--primary"
+            :href="currentProject.repo"
+            target="_blank"
+            rel="noreferrer"
+          >
             Open Repository
           </a>
-          <span class="status-pill">{{ currentProject.status }}</span>
+          <span v-if="currentProject.status" class="status-pill">{{ currentProject.status }}</span>
         </div>
       </div>
-
-      <img
-        v-if="currentProject.cover"
-        class="project-hero__image"
-        :src="currentProject.cover"
-        :alt="currentProject.title"
-      />
     </section>
 
     <section class="editorial-section">

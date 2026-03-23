@@ -36,7 +36,7 @@ const emit = defineEmits(['open-projects', 'open-project', 'open-resume'])
             Browse Projects
           </button>
           <button type="button" class="button" @click="emit('open-resume')">
-            Resume Snapshot
+            Resume
           </button>
         </div>
       </div>
