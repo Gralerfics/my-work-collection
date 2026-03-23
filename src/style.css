@@ -213,18 +213,27 @@ img {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 32px;
-  height: 32px;
+  gap: 8px;
+  min-height: 34px;
+  padding: 0 10px;
+  border-radius: 999px;
   color: var(--text-muted);
+  overflow: visible;
 }
 
 .site-header__icon svg {
-  width: 18px;
-  height: 18px;
+  width: 19px;
+  height: 19px;
+  overflow: visible;
 }
 
 .site-header__icon:hover {
   color: var(--title);
+}
+
+.site-header__icon span {
+  font-size: 0.84rem;
+  letter-spacing: 0.04em;
 }
 
 .site-header__link,

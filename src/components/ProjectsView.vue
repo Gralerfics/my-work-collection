@@ -44,7 +44,7 @@ const filteredProjects = computed(() => {
         <p class="eyebrow">Projects</p>
         <h1>Project index</h1>
         <p class="hero-panel__intro">
-          A searchable list of selected work across robotics, embedded systems, digital design, and web systems.
+          A list of selected work across my various interests.
         </p>
       </div>
     </section>
