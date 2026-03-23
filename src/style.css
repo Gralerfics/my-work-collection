@@ -592,8 +592,16 @@ h3 {
 }
 
 .home-preview-grid {
-  column-gap: 18px;
-  column-count: 1;
+  display: grid;
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+  gap: 18px;
+  align-items: start;
+}
+
+.home-preview-grid__column {
+  display: grid;
+  gap: 18px;
+  align-content: start;
 }
 
 .home-preview-card {
@@ -606,9 +614,6 @@ h3 {
   text-align: left;
   cursor: pointer;
   align-content: start;
-  margin: 0 0 18px;
-  break-inside: avoid;
-  page-break-inside: avoid;
   overflow: hidden;
 }
 
@@ -1090,19 +1095,19 @@ h3 {
 
 @media (min-width: 900px) {
   .home-preview-grid {
-    column-count: 3;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 }
 
 @media (min-width: 560px) and (max-width: 899px) {
   .home-preview-grid {
-    column-count: 2;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 559px) {
   .home-preview-grid {
-    column-count: 1;
+    grid-template-columns: 1fr;
   }
 }
 
