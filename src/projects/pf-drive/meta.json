@@ -1,7 +1,7 @@
 {
   "title": "Teach-and-Repeat Shuttle Drive",
   "subtitle": "An autonomous shuttle system based on demonstrated routes",
-  "period": "Ongoing",
+  "time": "2024.09 - Present",
   "groups": ["Robotics", "Embedded"],
   "status": "Temporarily Private",
   "repo": "https://github.com/Gralerfics/pf-drive",

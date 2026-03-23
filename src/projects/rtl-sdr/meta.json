@@ -1,7 +1,7 @@
 {
   "title": "RTL-SDR Project",
   "subtitle": "Software-defined radio hardware design and validation",
-  "period": "Hardware / Communication",
+  "time": "2022.05 - 2022.07",
   "groups": ["Embedded"],
   "status": "Completed",
   "repo": "https://github.com/Gralerfics/RTL-SDR-Project",

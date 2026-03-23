@@ -31,7 +31,7 @@ const relatedProjects = computed(() =>
 
     <section class="project-hero">
       <div class="project-hero__body">
-        <p class="eyebrow">{{ currentProject.groups.join(' / ') }} / {{ currentProject.period }}</p>
+        <p class="eyebrow">{{ currentProject.groups.join(' / ') }}</p>
         <h1>{{ currentProject.title }}</h1>
         <p class="project-hero__subtitle">{{ currentProject.subtitle }}</p>
 
@@ -53,6 +53,7 @@ const relatedProjects = computed(() =>
           >
             Open Repository
           </a>
+          <span v-if="currentProject.time" class="status-pill">{{ currentProject.time }}</span>
           <span v-if="currentProject.status" class="status-pill">{{ currentProject.status }}</span>
         </div>
       </div>

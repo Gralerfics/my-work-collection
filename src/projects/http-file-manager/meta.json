@@ -1,7 +1,7 @@
 {
   "title": "HTTP Server and File Manager",
   "subtitle": "From protocol implementation to application workflow",
-  "period": "Networking / Software",
+  "time": "2023.03 - 2023.06",
   "groups": ["Web"],
   "status": "Completed",
   "repo": "https://github.com/Gralerfics/http_file_manager",

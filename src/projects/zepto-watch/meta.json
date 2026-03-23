@@ -1,7 +1,7 @@
 {
   "title": "ZeptoWatch",
   "subtitle": "A modular STM32-based smart watch platform",
-  "period": "Embedded System",
+  "time": "2024.03 - 2024.08",
   "groups": ["Embedded"],
   "status": "Completed",
   "repo": "https://github.com/Gralerfics/ZeptoWatch",

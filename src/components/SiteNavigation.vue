@@ -58,10 +58,10 @@ onBeforeUnmount(() => {
     <div class="site-header__inner">
       <div class="site-header__main">
         <div class="site-header__brand" @click="emit('navigate', 'home')">
-          <span class="site-header__mark">GF</span>
+          <span class="site-header__mark">G</span>
           <div>
             <p class="site-header__name">Gralerfics</p>
-            <p class="site-header__meta">Engineering Portfolio</p>
+            <p class="site-header__meta">Zhuoyang Wang</p>
           </div>
         </div>
 

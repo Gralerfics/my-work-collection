@@ -1,7 +1,7 @@
 {
   "title": "FmcPGA",
   "subtitle": "A VHDL voxel-style graphics system on FPGA",
-  "period": "Course / Hardware",
+  "time": "2023.09 - 2024.01",
   "groups": ["Digital Design", "Embedded"],
   "status": "Completed",
   "repo": "https://github.com/Gralerfics/FmcPGA",

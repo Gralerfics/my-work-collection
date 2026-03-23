@@ -1,6 +1,6 @@
 export const profile = {
   name: 'Gralerfics',
-  title: 'Robotics / Electronic Engineering',
+  title: 'Robotics / Signal Processing / Electronic Engineering',
   location: 'Delft, Netherlands',
   email: 'z.wang-107@student.tudelft.nl / glverfer@outlook.com',
   github: 'https://github.com/Gralerfics',
@@ -15,24 +15,6 @@ export const researchFocus = [
   'Robotics navigation, perception, and control',
   'Digital system design with verifiable implementation',
   'Full-stack engineering from protocols to interfaces',
-]
-
-export const timeline = [
-  {
-    period: 'Present',
-    title: 'Building a coherent portfolio archive',
-    detail: 'Reframing course work, long-term projects, and experiments into a single engineering narrative.',
-  },
-  {
-    period: 'Ongoing',
-    title: 'Teach-and-Repeat autonomous shuttle system',
-    detail: 'Extending a bio-inspired route repetition method to an Ackermann vehicle platform with room for obstacle handling and multi-vehicle coordination.',
-  },
-  {
-    period: 'Undergraduate practice',
-    title: 'Robotics, digital systems, and embedded engineering',
-    detail: 'Developing across navigation, control, image processing, communication, digital circuits, and MCU platforms.',
-  },
 ]
 
 export const resumeSections = [

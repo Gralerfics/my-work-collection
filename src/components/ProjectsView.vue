@@ -101,7 +101,7 @@ const filteredProjects = computed(() => {
                   <span>{{ project.title }}</span>
                 </div>
                 <div class="project-card__head">
-                  <p class="project-card__meta">{{ project.groups.join(' / ') }} / {{ project.period }}</p>
+                  <p class="project-card__meta">{{ project.groups.join(' / ') }}</p>
                   <h3>{{ project.title }}</h3>
                   <p class="project-card__subtitle">{{ project.subtitle }}</p>
                 </div>
