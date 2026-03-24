@@ -29,6 +29,7 @@ export function useHashRoute() {
 
     const syncRoute = () => {
         route.value = readHash()
+        window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
     }
 
     const navigate = (target) => {
