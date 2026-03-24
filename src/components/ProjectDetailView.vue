@@ -180,15 +180,15 @@ function handleLightboxWheel(event) {
     const delta = event.deltaY < 0 ? 0.16 : -0.16
     const currentViewState = getCurrentViewState()
     const prevScale = currentViewState.scale
-    const nextScale = Math.min(4, Math.max(1, Number((prevScale + delta).toFixed(2))))
+    const nextScale = Math.min(4, Math.max(0.2, Number((prevScale + delta).toFixed(2))))
     const pointerX = event.clientX - rect.left - rect.width / 2
     const pointerY = event.clientY - rect.top - rect.height / 2
     const scaleRatio = nextScale / prevScale
 
     setCurrentViewState({
         scale: nextScale,
-        offsetX: nextScale === 1 ? 0 : currentViewState.offsetX - pointerX * (scaleRatio - 1),
-        offsetY: nextScale === 1 ? 0 : currentViewState.offsetY - pointerY * (scaleRatio - 1),
+        offsetX: nextScale <= 1 ? 0 : currentViewState.offsetX - pointerX * (scaleRatio - 1),
+        offsetY: nextScale <= 1 ? 0 : currentViewState.offsetY - pointerY * (scaleRatio - 1),
     })
 }
 
