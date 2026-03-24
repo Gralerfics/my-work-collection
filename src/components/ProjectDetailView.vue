@@ -61,6 +61,7 @@ function openLightbox(clickedImage) {
         items,
         currentIndex,
         viewStates: {},
+        contrastModes: {},
     }
     document.body.style.overflow = 'hidden'
 }
@@ -103,6 +104,35 @@ function setCurrentViewState(nextState) {
         viewStates: {
             ...lightbox.value.viewStates,
             [currentItem.id]: nextState,
+        },
+    }
+}
+
+function resetCurrentViewState() {
+    setCurrentViewState({ scale: 1, offsetX: 0, offsetY: 0 })
+    endLightboxDrag()
+}
+
+function getCurrentContrastMode() {
+    const currentItem = getCurrentItem()
+    if (!lightbox.value || !currentItem) {
+        return 'dark-image'
+    }
+
+    return lightbox.value.contrastModes[currentItem.id] ?? 'dark-image'
+}
+
+function setCurrentContrastMode(mode) {
+    const currentItem = getCurrentItem()
+    if (!lightbox.value || !currentItem) {
+        return
+    }
+
+    lightbox.value = {
+        ...lightbox.value,
+        contrastModes: {
+            ...lightbox.value.contrastModes,
+            [currentItem.id]: mode,
         },
     }
 }
@@ -151,6 +181,50 @@ function jumpToImage(index) {
     endLightboxDrag()
 }
 
+function analyseCurrentImageContrast() {
+    if (!lightboxImage.value) {
+        return
+    }
+
+    const sample = document.createElement('canvas')
+    const width = 24
+    const height = 24
+    sample.width = width
+    sample.height = height
+
+    const context = sample.getContext('2d', { willReadFrequently: true })
+    if (!context) {
+        return
+    }
+
+    try {
+        context.drawImage(lightboxImage.value, 0, 0, width, height)
+        const { data } = context.getImageData(0, 0, width, height)
+        let luminanceSum = 0
+        let alphaSum = 0
+
+        for (let index = 0; index < data.length; index += 4) {
+            const alpha = data[index + 3] / 255
+            if (alpha === 0) {
+                continue
+            }
+
+            const r = data[index]
+            const g = data[index + 1]
+            const b = data[index + 2]
+            const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b
+
+            luminanceSum += luminance * alpha
+            alphaSum += alpha
+        }
+
+        const averageLuminance = alphaSum > 0 ? luminanceSum / alphaSum : 0
+        setCurrentContrastMode(averageLuminance > 164 ? 'light-image' : 'dark-image')
+    } catch {
+        setCurrentContrastMode('dark-image')
+    }
+}
+
 function handleKeydown(event) {
     if (event.key === 'Escape' && lightbox.value) {
         closeLightbox()
@@ -166,6 +240,12 @@ function handleKeydown(event) {
     if (event.key === 'ArrowRight' && lightbox.value) {
         event.preventDefault()
         showNextImage()
+        return
+    }
+
+    if (event.key === 'ArrowUp' && lightbox.value) {
+        event.preventDefault()
+        resetCurrentViewState()
     }
 }
 
@@ -341,6 +421,7 @@ if (typeof window !== 'undefined') {
             <div
                 v-if="lightbox"
                 class="image-lightbox"
+                :class="`image-lightbox--${getCurrentContrastMode()}`"
                 role="dialog"
                 aria-modal="true"
                 @wheel="handleLightboxWheel"
@@ -381,6 +462,7 @@ if (typeof window !== 'undefined') {
                         :alt="getCurrentItem()?.alt"
                         draggable="false"
                         @dragstart.prevent
+                        @load="analyseCurrentImageContrast"
                         :style="{
                             transform: `translate(${getCurrentViewState()?.offsetX ?? 0}px, ${getCurrentViewState()?.offsetY ?? 0}px) scale(${getCurrentViewState()?.scale ?? 1})`,
                         }"
