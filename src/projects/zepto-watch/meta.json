@@ -1,11 +1,11 @@
 {
-  "title": "ZeptoWatch",
-  "subtitle": "A modular STM32-based smart watch platform",
-  "time": "2024.03 - 2024.08",
-  "groups": ["Embedded"],
-  "status": "Completed",
-  "repo": "https://github.com/Gralerfics/ZeptoWatch",
-  "intro": "A wearable embedded platform built around STM32, covering peripheral integration, system software, GUI, and extensibility.",
-  "tags": ["STM32", "FreeRTOS", "LVGL", "USB 2.0", "FAT", "Python"],
-  "priority": 750
+    "title": "ZeptoWatch",
+    "subtitle": "An STM32-based touchscreen watch.",
+    "time": "2022.10 - 2023.01",
+    "groups": ["Embedded"],
+    "status": "Completed",
+    "repo": "https://github.com/Gralerfics/ZeptoWatch",
+    "intro": "A wearable embedded platform built around STM32, covering peripheral integration, system software, GUI, and extensibility.",
+    "tags": ["STM32", "FreeRTOS", "LVGL", "USB 2.0", "FAT", "Python"],
+    "priority": 750
 }
