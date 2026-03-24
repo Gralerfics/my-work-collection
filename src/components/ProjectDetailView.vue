@@ -46,7 +46,9 @@ function collectGalleryItems() {
             id: `${index}:${image.currentSrc || image.src}`,
             src: image.currentSrc || image.src,
             alt: image.alt || '',
-            caption: image.closest('figure')?.querySelector('figcaption')?.textContent?.trim() || '',
+            caption: image.classList.contains('project-cover__image')
+                ? '(cover)'
+                : image.closest('figure')?.querySelector('figcaption')?.textContent?.trim() || '',
         }))
 }
 
@@ -143,7 +145,7 @@ const gallerySlots = computed(() => {
         return 3
     }
     if (viewportWidth.value < 760) {
-        return 4
+        return 5
     }
     if (viewportWidth.value < 1080) {
         return 5
@@ -157,7 +159,7 @@ const galleryWindow = computed(() => {
     }
 
     const items = lightbox.value.items
-    const slots = Math.min(gallerySlots.value, Math.max(1, items.length))
+    const slots = gallerySlots.value
     const half = Math.floor(slots / 2)
     const start = lightbox.value.currentIndex - half
 
@@ -525,7 +527,6 @@ if (typeof window !== 'undefined') {
                         </p>
                     </div>
                     <div
-                        v-if="lightbox.items.length > 1"
                         class="image-lightbox__gallery"
                         :class="{
                             'has-prev-hidden': galleryWindow.hasPrevHidden,

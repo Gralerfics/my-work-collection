@@ -511,6 +511,24 @@ h3 {
   align-items: start;
 }
 
+.page-project .editorial-section {
+  margin-top: 18px;
+}
+
+.page-project .editorial-section:first-of-type {
+  margin-top: 26px;
+}
+
+.page-project .editorial-section + .editorial-section {
+  margin-top: 0;
+}
+
+.page-project .editorial-section:first-of-type .section-label,
+.page-project .editorial-section:first-of-type .section-body {
+  padding-top: 0;
+  border-top: none;
+}
+
 .section-label {
   position: sticky;
   top: 92px;
