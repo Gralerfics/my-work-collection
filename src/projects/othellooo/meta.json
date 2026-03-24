@@ -7,5 +7,5 @@
   "repo": "https://github.com/Gralerfics/OthellooO",
   "intro": "A 3D Reversi system implemented with Java, Swing, and LWJGL, combining gameplay features with graphics exploration.",
   "tags": ["Java", "Swing", "LWJGL", "OpenGL", "Shader"],
-  "priority": 50
+  "priority": 700
 }

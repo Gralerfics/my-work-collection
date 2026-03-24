@@ -74,7 +74,7 @@ onBeforeUnmount(() => {
                         Browse Projects
                     </button>
                     <button type="button" class="button" @click="emit('open-resume')">
-                        Résumé
+                        Resume
                     </button>
                 </div>
             </div>

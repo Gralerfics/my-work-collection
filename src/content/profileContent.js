@@ -6,16 +6,16 @@ export const profile = {
     email: 'z.wang-107@student.tudelft.nl / glverfer@outlook.com',
     github: 'https://github.com/Gralerfics',
     intro:
-        'Engineering-oriented student working across robotics, embedded systems, digital design, and systems implementation.',
+        'Engineering-oriented student working across robotics, signal processing, digital design and embedded systems.',
     statement:
-        'This site focuses on projects that can be explained clearly and implemented rigorously, with attention to system structure rather than isolated demonstrations.',
+        '',
 }
 
 export const researchFocus = [
-    'Embedded systems and hardware-software co-design',
-    'Robotics navigation, perception, and control',
-    'Digital system design with verifiable implementation',
-    'Full-stack engineering from protocols to interfaces',
+    'Robotics navigation and control / Human-robot interaction',
+    'Embedded systems and hardware-software co-design / Digital system design',
+    'Computer graphics and rendering',
+    'Software / framework development',
 ]
 
 export const resumeContent = {
@@ -37,15 +37,34 @@ export const resumeContent = {
         },
     ],
     skills: [
-        'Programming: C/C++, Python, Java, MATLAB, HDL (VHDL), JavaScript',
-        'Embedded and systems: STM32, FreeRTOS, LVGL, USB, FAT filesystem, protocol-level implementation',
-        'Robotics: navigation, control, QR-based interaction, laboratory project integration',
-        'Digital design: FPGA workflows, timing-aware implementation, hardware-software reasoning',
-        'Software practice: project structuring, interface design, technical documentation, static site tooling',
+        {
+            title: 'Programming',
+            detail: 'C, Python, C++, VHDL, JavaScript, etc.',
+        },
+        {
+            title: 'Robotics',
+            detail: 'ROS and ROS2 experiences; Simulators (gym, Webots, etc).',
+        },
+        {
+            title: 'Embedded system',
+            detail: [
+                'Welding, assembly, PCB designing and hardware debugging;',
+                'STM32, FPGA; Common sensors and modules; RTOS, Linux.',
+            ]
+        },
+        {
+            title: 'Other',
+            detail: 'Adobe Illustrator, SolidWorks.',
+        },
     ],
     honors: [
-        'Example placeholder',
-        'Example placeholder',
-        'Example placeholder',
+        {
+            title: 'Junior Embedded System Design Engineer',
+            detail: 'awarded by Chinese Institute of Electronics (CIE)',
+        },
+        {
+            title: 'National First Prize',
+            detail: 'National (China) College Embedded Chip and System Design Competition, Application Track',
+        },
     ],
 }

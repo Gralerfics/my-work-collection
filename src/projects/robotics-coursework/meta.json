@@ -6,5 +6,5 @@
   "status": "Completed",
   "intro": "A grouped project entry covering several robotics laboratory tasks in obstacle navigation, waypoint stopping, QR-based object interaction, and whiteboard-following control.",
   "tags": ["Robotics", "Navigation", "Control", "ROS"],
-  "priority": 70
+  "priority": 900
 }

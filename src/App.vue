@@ -20,7 +20,7 @@ watchEffect(() => {
     const titles = {
         home: `${profile.handle} | Home`,
         projects: `${profile.handle} | Projects`,
-        resume: `${profile.handle} | Résumé`,
+        resume: `${profile.handle} | Resume`,
         project: `${currentProject.value.title} | ${profile.handle}`,
     }
 

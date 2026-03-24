@@ -7,5 +7,5 @@
   "repo": "https://github.com/Gralerfics/http_file_manager",
   "intro": "A Python project implementing an HTTP server without relying on web frameworks, then extending it into a complete file manager application.",
   "tags": ["Python", "HTTP/1.1", "Backend", "Frontend"],
-  "priority": 50
+  "priority": 600
 }

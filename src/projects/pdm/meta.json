@@ -8,5 +8,5 @@
   "repo": "https://github.com/martin-gou/pdm_group6",
   "intro": "A collaborative planning and decision making project featuring global planning, local control, integrated navigation benchmarks, and an open-door demonstration in simulation.",
   "tags": ["Planning", "Control", "Navigation", "PyBullet"],
-  "priority": 65
+  "priority": 900
 }

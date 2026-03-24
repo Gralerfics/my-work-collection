@@ -1,4 +1,6 @@
 <script setup>
+const toLines = (detail) => (Array.isArray(detail) ? detail : [detail])
+
 defineProps({
     profile: {
         type: Object,
@@ -17,7 +19,7 @@ const emit = defineEmits(['open-projects'])
     <div class="page page-resume">
         <section class="resume-hero">
             <div class="resume-hero__body">
-                <p class="eyebrow">Résumé</p>
+                <p class="eyebrow">Resume</p>
                 <h1>{{ profile.realName }}</h1>
                 <p class="resume-hero__title">{{ profile.title }}</p>
                 <p class="resume-hero__contact">{{ profile.email }}</p>
@@ -77,9 +79,18 @@ const emit = defineEmits(['open-projects'])
                 <h2>Technical skills</h2>
             </div>
             <div class="section-body section-body--boxed">
-                <ul class="list-clean bullet-list">
-                    <li v-for="skill in resumeContent.skills" :key="skill">{{ skill }}</li>
-                </ul>
+                <div class="resume-detail-list">
+                    <article
+                        v-for="skill in resumeContent.skills"
+                        :key="skill.title"
+                        class="resume-detail-item"
+                    >
+                        <h3>{{ skill.title }}</h3>
+                        <div class="resume-detail-item__content">
+                            <p v-for="line in toLines(skill.detail)" :key="line">{{ line }}</p>
+                        </div>
+                    </article>
+                </div>
             </div>
         </section>
 
@@ -89,9 +100,16 @@ const emit = defineEmits(['open-projects'])
                 <h2>Honors and awards</h2>
             </div>
             <div class="section-body section-body--boxed">
-                <ul class="list-clean bullet-list">
-                    <li v-for="item in resumeContent.honors" :key="item">{{ item }}</li>
-                </ul>
+                <div class="resume-awards-list">
+                    <article
+                        v-for="item in resumeContent.honors"
+                        :key="item.title"
+                        class="resume-award-item"
+                    >
+                        <h3>{{ item.title }}</h3>
+                        <p>{{ item.detail }}</p>
+                    </article>
+                </div>
             </div>
         </section>
     </div>

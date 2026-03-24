@@ -31,7 +31,7 @@ let observer = null
 
 const items = [
     { key: 'home', label: 'Home' },
-    { key: 'resume', label: 'Résumé' },
+    { key: 'resume', label: 'Resume' },
 ]
 
 onMounted(() => {
