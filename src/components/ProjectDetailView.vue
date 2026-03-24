@@ -1,5 +1,5 @@
 <script setup>
-import { computed } from 'vue'
+import { computed, onBeforeUnmount, ref, watch } from 'vue'
 
 const props = defineProps({
     currentProject: {
@@ -23,11 +23,56 @@ const relatedProjects = computed(() =>
         .filter((project) => project.slug !== props.currentProject.slug)
         .slice(0, props.relatedProjectsCount),
 )
+
+const lightbox = ref(null)
+
+function openLightbox(src, alt = '') {
+    lightbox.value = { src, alt }
+    document.body.style.overflow = 'hidden'
+}
+
+function closeLightbox() {
+    lightbox.value = null
+    document.body.style.overflow = ''
+}
+
+function handleImageClick(event) {
+    const image = event.target.closest('img')
+    if (!image || !event.currentTarget.contains(image)) {
+        return
+    }
+
+    openLightbox(image.currentSrc || image.src, image.alt || '')
+}
+
+function handleKeydown(event) {
+    if (event.key === 'Escape' && lightbox.value) {
+        closeLightbox()
+    }
+}
+
+watch(
+    () => props.currentProject.slug,
+    () => {
+        closeLightbox()
+    },
+)
+
+onBeforeUnmount(() => {
+    document.body.style.overflow = ''
+})
+
+if (typeof window !== 'undefined') {
+    window.addEventListener('keydown', handleKeydown)
+    onBeforeUnmount(() => {
+        window.removeEventListener('keydown', handleKeydown)
+    })
+}
 </script>
 
 <template>
     <div class="page page-project">
-        <section v-if="currentProject.cover" class="project-cover">
+        <section v-if="currentProject.cover" class="project-cover" @click="handleImageClick">
             <img
                 class="project-cover__image"
                 :src="currentProject.cover"
@@ -71,7 +116,7 @@ const relatedProjects = computed(() =>
                 <p class="eyebrow">Project</p>
                 <h2>Details</h2>
             </div>
-            <div class="section-body">
+            <div class="section-body" @click="handleImageClick">
                 <component :is="currentProject.pageComponent" />
             </div>
         </section>
@@ -99,5 +144,20 @@ const relatedProjects = computed(() =>
                 </div>
             </div>
         </section>
+
+        <teleport to="body">
+            <div
+                v-if="lightbox"
+                class="image-lightbox"
+                role="dialog"
+                aria-modal="true"
+                @click.self="closeLightbox"
+            >
+                <button type="button" class="image-lightbox__close" @click="closeLightbox">
+                    Close
+                </button>
+                <img class="image-lightbox__image" :src="lightbox.src" :alt="lightbox.alt" />
+            </div>
+        </teleport>
     </div>
 </template>

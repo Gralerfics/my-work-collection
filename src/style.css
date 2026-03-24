@@ -351,6 +351,7 @@ img {
   width: 100%;
   max-height: 48vh;
   object-fit: cover;
+  cursor: zoom-in;
 }
 
 .hero-panel__body,
@@ -1275,6 +1276,11 @@ a.education-course-list__main:hover {
   gap: 24px;
 }
 
+.project-article img,
+.project-media img {
+  cursor: zoom-in;
+}
+
 .project-article__section {
   padding-top: 18px;
   border-top: 1px solid var(--border);
@@ -1283,6 +1289,37 @@ a.education-course-list__main:hover {
 .project-article__section h2 {
   margin-bottom: 12px;
   font-size: 1.45rem;
+}
+
+.image-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(20, 28, 40, 0.82);
+  backdrop-filter: blur(10px);
+}
+
+.image-lightbox__close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  min-height: 38px;
+  padding: 0 14px;
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.88);
+  background: rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+}
+
+.image-lightbox__image {
+  max-width: min(1400px, calc(100vw - 48px));
+  max-height: calc(100vh - 48px);
+  border-radius: 10px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
 }
 
 @media (max-width: 1100px) {
