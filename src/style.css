@@ -1464,6 +1464,10 @@ a.education-course-list__main:hover {
     font-size: 1.45rem;
 }
 
+.project-article__section p + p {
+    margin-top: 0.825em;
+}
+
 .project-media {
     display: grid;
     gap: 8px;
@@ -1500,10 +1504,12 @@ a.education-course-list__main:hover {
 
 .project-media-grid--two {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding-inline: 60px;
 }
 
 .project-media-grid--three {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+    padding-inline: 20px;
 }
 
 .project-media-grid > .project-media {

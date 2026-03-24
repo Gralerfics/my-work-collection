@@ -5,23 +5,8 @@ import boardLayout1 from './assets/pcb-main-1.png'
 import runtimePhoto from './assets/runtime.jpg'
 import prototyping from './assets/prototyping.jpg'
 import gravityDemo from './assets/gravity.gif'
-
-const gravityExampleCode = `
-    # icon: notebook
-    # color: 0x4F7BD9
-    # name: Gravity Demo
-
-    import zws
-    import lvgl as lv
-
-    field = zws.Display.getField()
-    label = lv.label(field)
-
-    while True:
-        ax, ay, az = zws.IMU.getAcceleration()
-        label.set_text(f"g = ({ax:.2f}, {ay:.2f}, {az:.2f})")
-        zws.System.delayMs(40)
-`
+import result0 from './assets/res-0.jpg'
+import result1 from './assets/res-1.jpg'
 </script>
 
 <template>
@@ -49,12 +34,25 @@ const gravityExampleCode = `
             </p>
             <div class="project-media-grid project-media-grid--two">
                 <figure class="project-media">
-                    <img :src="boardLayout0" alt="Front view of the bottom plate layout design" />
-                    <figcaption>A front view of the bottom plate layout design.</figcaption>
+                    <img :src="boardLayout0" alt="Front view of the lower board layout design" />
+                    <figcaption>A front view of the lower board layout design.</figcaption>
                 </figure>
                 <figure class="project-media">
-                    <img :src="boardLayout1" alt="Reverse view of the bottom plate layout design" />
-                    <figcaption>A reverse view of the bottom plate layout design.</figcaption>
+                    <img :src="boardLayout1" alt="Reverse view of the lower board layout design" />
+                    <figcaption>A reverse view of the lower board layout design.</figcaption>
+                </figure>
+            </div>
+            <p>
+                The PCB was fabricated using JLC, and after purchasing and assembling all the components, it was manually soldered and assembled. The result is shown in figures below.
+            </p>
+            <div class="project-media-grid project-media-grid--two">
+                <figure class="project-media">
+                    <img :src="result0" alt="Assembled lower board" />
+                    <figcaption>The assembled lower board.</figcaption>
+                </figure>
+                <figure class="project-media">
+                    <img :src="result1" alt="Assembled upper board" />
+                    <figcaption>The assembled upper board.</figcaption>
                 </figure>
             </div>
         </section>
@@ -63,14 +61,36 @@ const gravityExampleCode = `
             <h2>Runtime model</h2>
             <p>
                 Because it integrates many peripheral modules, numerous functions can be implemented through software calls. However, as a so-called smart device, I didn't want its firmware to be hardcoded like other projects, requiring troublesome code updates.
+            </p>
+            <p>
                 Finally, I considered building a runtime environment that could read user-provided applications. The simplest and most direct approach was to integrate a lightweight Python interpreter, encapsulating the hardware interfaces as packages, allowing users to write their own Python scripts to implement different functions.
+            </p>
+            <p>
                 Thus, the following implementation was derived. The firmware is based on FreeRTOS and is used to manage the system UI, file system, and the built-in open-source Python interpreter PikaPython, which is responsible for executing scripts.
             </p>
             <figure class="project-media project-media--medium">
                 <img :src="runtimePhoto" alt="Testing script applications from onboard storage" />
                 <figcaption>A prototype for the real-time system as a test for the runtime. Scripts are loaded as applications, not as hidden test code.</figcaption>
             </figure>
-            <ProjectCodeBlock lang="python" :code="gravityExampleCode" />
+            <ProjectCodeBlock
+                lang="python"
+                :code="String.raw`
+                    # icon: notebook
+                    # color: 0x4F7BD9
+                    # name: Gravity Demo
+
+                    import zws
+                    import lvgl as lv
+
+                    field = zws.Display.getField()
+                    label = lv.label(field)
+
+                    while True:
+                        ax, ay, az = zws.IMU.getAcceleration()
+                        label.set_text(f'g = ({ax:.2f}, {ay:.2f}, {az:.2f})')
+                        zws.System.delayMs(40)
+                `"
+            />
         </section>
 
         <section class="project-article__section">

@@ -13,7 +13,6 @@ const props = defineProps({
 })
 
 const copyLabel = ref('Copy')
-
 function escapeHtml(text) {
     return text
         .replaceAll('&', '&amp;')
