@@ -1572,6 +1572,32 @@ a.education-course-list__main:hover {
     font-size: 0.9rem;
 }
 
+.project-equation-inline {
+    display: inline-flex;
+    align-items: baseline;
+    vertical-align: -0.18em;
+    margin-inline: 0.12em;
+}
+
+.project-equation-inline__svg {
+    display: inline-flex;
+    align-items: baseline;
+    max-width: 100%;
+}
+
+.project-equation-inline__svg svg {
+    display: block;
+    height: 1.15em;
+    width: auto;
+    max-width: none;
+    color: var(--title);
+}
+
+.project-equation-inline__error {
+    color: #9b2c2c;
+    font: 0.92em/1.2 "Courier New", "SFMono-Regular", Consolas, monospace;
+}
+
 .project-article__section .bullet-list {
     margin-top: 12px;
     margin-bottom: 20px;

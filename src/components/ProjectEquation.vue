@@ -23,6 +23,10 @@ const props = defineProps({
         type: Boolean,
         default: true,
     },
+    inline: {
+        type: Boolean,
+        default: false,
+    },
 })
 
 let typstWasmConfigured = false
@@ -96,7 +100,11 @@ watch(
 </script>
 
 <template>
-    <figure class="project-equation">
+    <span v-if="inline" class="project-equation-inline">
+        <span v-if="svgMarkup" class="project-equation-inline__svg" v-html="svgMarkup" />
+        <span v-else-if="renderError" class="project-equation-inline__error">{{ renderError }}</span>
+    </span>
+    <figure v-else class="project-equation">
         <div class="project-equation__body" :class="{ 'project-equation__body--plain': !framed }">
             <div v-if="svgMarkup" class="project-equation__svg" v-html="svgMarkup" />
             <pre v-else-if="renderError" class="project-equation__error">{{ renderError }}</pre>

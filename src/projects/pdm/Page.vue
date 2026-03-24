@@ -2,7 +2,6 @@
 import ProjectEquation from '../../components/ProjectEquation.vue'
 import globalBenchmarkSummary from './assets/global-benchmark-summary.png'
 import localBenchmarkSummary from './assets/local-benchmark-summary.png'
-import mppiTrajectorySample from './assets/mppi-trajectory-sample.png'
 
 const ackermannEquation = String.raw`
 $ vec(dot(x), dot(y), dot(theta)) = vec(v cos(theta), v sin(theta), v / L tan(delta)) $
@@ -18,6 +17,10 @@ $ "RMSE-ATE" = sqrt(1 / N sum_(k=1)^N norm(p_u(k delta) - p(k delta))_2^2) $
 
 const doorEquation = String.raw`
 $ J = sum_(k=0)^(N-1) (w_p norm(p_"ee" - p_"ee"^*)^2 + w_o "ToAngle"(R_"ee"^T R_"ee"^*)^2 + w_u norm(u_k)^2 + w_"xy" max(0, R^2 - norm(p_"ee,xy" - p_"xy")^2)) + w_T norm(p_N - p_N^*)^2 $
+`
+
+const toAngleInlineEquation = String.raw`
+$ "ToAngle"(R_"ee"^T R_"ee"^*) $
 `
 </script>
 
@@ -99,12 +102,6 @@ $ J = sum_(k=0)^(N-1) (w_p norm(p_"ee" - p_"ee"^*)^2 + w_o "ToAngle"(R_"ee"^T R_
             <p>
                 The benchmark values in <code>summary.csv</code> are the numbers I actually used when deciding which configuration to keep in the demonstrations. MPC with <code>H=20</code> reached <code>0.8</code> success rate, but the mean computation time was already around <code>127.5 ms</code>. MPPI with <code>H=20, K=200</code> reached <code>0.9</code> success at around <code>5.2 ms</code>, and even <code>K=900</code> stayed around <code>20.5 ms</code>. The tracking RMSE was not always better for MPPI, but the compute / robustness trade-off was much more attractive for the full task.
             </p>
-            <figure class="project-media project-media--medium">
-                <img :src="mppiTrajectorySample" alt="Sample MPPI trajectory from the benchmark data" />
-                <figcaption>
-                    A sample trajectory plot from the benchmark set. This is the kind of rollout behavior I used when checking whether a promising aggregate metric still looked reasonable in motion.
-                </figcaption>
-            </figure>
         </section>
 
         <section class="project-article__section">
@@ -113,7 +110,9 @@ $ J = sum_(k=0)^(N-1) (w_p norm(p_"ee" - p_"ee"^*)^2 + w_o "ToAngle"(R_"ee"^T R_
                 The door-opening stage is where the project stops being a plain navigation assignment. Once the base reaches the interaction area, the problem changes to whole-body predictive control: the arm has to reach the handle with the right orientation, while the base still has to move so that the arm does not over-stretch or enter an awkward configuration.
             </p>
             <p>
-                In the report, this stage is written as a unified predictive controller over the coupled chassis-arm state. The objective penalizes end-effector position error, end-effector orientation error through <code>ToAngle(R_ee^T R_ee^*)</code>, control effort, and an additional XY penalty that discourages the end effector from entering the projected chassis footprint.
+                In the report, this stage is written as a unified predictive controller over the coupled chassis-arm state. The objective penalizes end-effector position error, end-effector orientation error through
+                <ProjectEquation :code="toAngleInlineEquation" inline />
+                , control effort, and an additional XY penalty that discourages the end effector from entering the projected chassis footprint.
             </p>
             <ProjectEquation
                 :code="doorEquation"
