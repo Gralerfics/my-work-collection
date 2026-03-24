@@ -1604,6 +1604,10 @@ a.education-course-list__main:hover {
     font: 0.92em/1.2 "Courier New", "SFMono-Regular", Consolas, monospace;
 }
 
+.project-equation__source {
+    display: none;
+}
+
 .project-article__section .bullet-list {
     margin-top: 12px;
     margin-bottom: 20px;

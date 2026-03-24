@@ -1,5 +1,5 @@
 <script setup>
-import { computed, ref, watch } from 'vue'
+import { computed, nextTick, onMounted, onUpdated, ref, watch } from 'vue'
 import { $typst } from '@myriaddreamin/typst.ts'
 import rendererWasmUrl from '@myriaddreamin/typst-ts-renderer/wasm?url'
 import compilerWasmUrl from '@myriaddreamin/typst-ts-web-compiler/pkg/typst_ts_web_compiler_bg.wasm?url'
@@ -9,7 +9,7 @@ import { setImportWasmModule as setCompilerImportWasmModule } from '@myriaddream
 const props = defineProps({
     code: {
         type: String,
-        required: true,
+        default: '',
     },
     caption: {
         type: String,
@@ -57,12 +57,26 @@ function configureTypstWasm() {
 
 const svgMarkup = ref('')
 const renderError = ref('')
+const slotSourceEl = ref(null)
+const slotSourceText = ref('')
+
+function updateSlotSource() {
+    slotSourceText.value = slotSourceEl.value?.textContent?.trim() ?? ''
+}
+
+onMounted(() => {
+    nextTick(updateSlotSource)
+})
+
+onUpdated(() => {
+    nextTick(updateSlotSource)
+})
 
 const documentSource = computed(() => [
     '#set page(width: auto, height: auto, margin: 0pt)',
     `#set text(size: ${props.size})`,
     '#set par(justify: false)',
-    props.code.trim(),
+    (props.code || slotSourceText.value).trim(),
 ].join('\n'))
 
 let renderToken = 0
@@ -100,6 +114,9 @@ watch(
 </script>
 
 <template>
+    <span ref="slotSourceEl" class="project-equation__source" aria-hidden="true">
+        <slot />
+    </span>
     <span v-if="inline" class="project-equation-inline">
         <span v-if="svgMarkup" class="project-equation-inline__svg" v-html="svgMarkup" />
         <span v-else-if="renderError" class="project-equation-inline__error">{{ renderError }}</span>
