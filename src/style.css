@@ -959,7 +959,7 @@ a.education-course-list__main:hover {
 
 .project-card__content {
     display: grid;
-    grid-template-columns: 180px minmax(0, 1.15fr) minmax(220px, 0.85fr) auto;
+    grid-template-columns: 180px minmax(280px, 1.35fr) minmax(160px, 0.65fr) auto;
     gap: 20px;
     align-items: start;
     padding: 18px;
@@ -1876,7 +1876,7 @@ a.education-course-list__main:hover {
     }
 }
 
-@media (max-width: 1100px) {
+@media (max-width: 900px) {
     .hero-panel,
     .project-hero,
     .resume-hero,
@@ -1902,14 +1902,42 @@ a.education-course-list__main:hover {
         grid-template-columns: 1fr;
     }
 
-    .timeline__heading,
+    .timeline__heading {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: start;
+        gap: 8px 20px;
+    }
+
     .education-course-list__item {
         display: grid;
-        gap: 8px;
+        grid-template-columns: minmax(0, 1fr) auto;
+        align-items: start;
+        gap: 8px 18px;
+    }
+
+    .education-course-list__main {
+        min-width: 0;
+        justify-self: stretch;
+    }
+
+    .education-course-list__grade {
+        justify-self: end;
+        text-align: right;
     }
 
     .contact-strip__links {
         grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 1024px) {
+    .project-card__content {
+        grid-template-columns: 180px minmax(0, 1fr);
+    }
+
+    .project-card__summary-wrap {
+        display: none;
     }
 }
 
@@ -1938,9 +1966,8 @@ a.education-course-list__main:hover {
     }
 
     .site-header {
-        position: static;
-        flex-direction: column;
-        align-items: stretch;
+        position: sticky;
+        top: 0;
         border-radius: 0;
         padding: 16px 0 14px;
     }
@@ -1969,16 +1996,22 @@ a.education-course-list__main:hover {
     }
 
     .site-header__inner {
-        width: min(calc(100% - 20px), var(--content-width));
+        width: min(calc(100% - 28px), var(--content-width));
+        align-items: flex-start;
     }
 
     .content-shell {
-        width: min(calc(100% - 20px), var(--content-width));
+        width: min(calc(100% - 28px), var(--content-width));
     }
 
     .content-shell {
         padding-top: 20px;
         padding-bottom: 28px;
+    }
+
+    .timeline__heading {
+        grid-template-columns: 1fr;
+        gap: 8px;
     }
 
     .hero-panel,
@@ -2002,5 +2035,15 @@ a.education-course-list__main:hover {
 
     .text-link {
         justify-self: start;
+    }
+
+    .education-course-list__item {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+
+    .education-course-list__grade {
+        justify-self: start;
+        text-align: left;
     }
 }
