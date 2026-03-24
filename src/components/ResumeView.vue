@@ -113,7 +113,12 @@ const emit = defineEmits(['open-projects'])
                                                 <li
                                                     v-for="course in group.items"
                                                     :key="typeof course === 'string' ? course : course.name"
-                                                    class="education-course-list__item"
+                                                    :class="[
+                                                        'education-course-list__item',
+                                                        typeof course !== 'string' && course.featured
+                                                            ? 'education-course-list__item--featured'
+                                                            : null,
+                                                    ]"
                                                 >
                                                     <component
                                                         :is="typeof course !== 'string' && course.link ? 'a' : 'div'"
@@ -124,7 +129,10 @@ const emit = defineEmits(['open-projects'])
                                                     >
                                                         <span
                                                             v-if="typeof course !== 'string' && course.code"
-                                                            class="education-course-list__code"
+                                                            :class="[
+                                                                'education-course-list__code',
+                                                                course.featured ? 'education-course-list__code--featured' : null,
+                                                            ]"
                                                         >
                                                             {{ course.code }}
                                                         </span>
@@ -137,9 +145,15 @@ const emit = defineEmits(['open-projects'])
                                             </ul>
                                         </section>
                                     </div>
-                                    <p v-if="item.coursesNote" class="education-panel__note">
-                                        {{ item.coursesNote }}
-                                    </p>
+                                    <div v-if="item.notes?.length" class="education-panel__notes">
+                                        <p
+                                            v-for="note in item.notes"
+                                            :key="note"
+                                            class="education-panel__note"
+                                        >
+                                            {{ note }}
+                                        </p>
+                                    </div>
                                 </div>
                             </Transition>
                         </div>

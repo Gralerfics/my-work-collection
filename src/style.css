@@ -836,6 +836,12 @@ a.education-course-list__main:hover {
   letter-spacing: 0.06em;
 }
 
+.education-course-list__code--featured {
+  color: var(--accent);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
 .education-course-list__grade {
   flex: none;
   color: var(--title);
@@ -843,10 +849,16 @@ a.education-course-list__main:hover {
   font-size: 0.86rem;
 }
 
-.education-panel__note {
-  margin: 16px 0 0;
+.education-panel__notes {
+  display: grid;
+  gap: 8px;
+  margin-top: 16px;
   padding-top: 12px;
   border-top: 1px solid var(--border);
+}
+
+.education-panel__note {
+  margin: 0;
   color: var(--text-muted);
   font-size: 0.88rem;
 }
