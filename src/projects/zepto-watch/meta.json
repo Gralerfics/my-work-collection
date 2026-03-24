@@ -6,6 +6,6 @@
     "status": "Completed",
     "repo": "https://github.com/Gralerfics/ZeptoWatch",
     "intro": "A wearable embedded platform built around STM32, covering peripheral integration, system software, GUI, and extensibility.",
-    "tags": ["STM32", "C/C++", "FreeRTOS", "LVGL", "USB 2.0", "FAT"],
+    "tags": ["STM32", "C / C++", "FreeRTOS", "LVGL", "USB 2.0", "FAT"],
     "priority": 800
 }

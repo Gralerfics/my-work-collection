@@ -1,12 +1,12 @@
 {
-  "title": "Planning and Decision Making Group Project",
-  "subtitle": "Integrated navigation and door-opening system in simulation",
-  "time": "2024.02 - 2024.04",
-  "groups": ["Robotics"],
-  "status": "Completed",
-  "collaboration": "Collaborative Project",
-  "repo": "https://github.com/martin-gou/pdm_group6",
-  "intro": "A collaborative planning and decision making project featuring global planning, local control, integrated navigation benchmarks, and an open-door demonstration in simulation.",
-  "tags": ["Planning", "Control", "Navigation", "PyBullet"],
-  "priority": 900
+    "title": "Navigation and Door-Opening for a Non-Holonomic Mobile Manipulator",
+    "subtitle": "Hierarchical planning and whole-body predictive control in simulation",
+    "time": "2025.11 - 2026.01",
+    "groups": ["Robotics"],
+    "status": "Completed",
+    "collaboration": "Collaborative Project",
+    "repo": "https://github.com/martin-gou/pdm_group6",
+    "intro": "The course project for TU Delft Planning and Decision Making. The system combines global planning, MPC-based local control and a door-opening task in PyBullet.",
+    "tags": ["MPC / MPPI", "RRT", "Planning", "Simulation", "Coursework"],
+    "priority": 900
 }
