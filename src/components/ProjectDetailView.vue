@@ -28,12 +28,25 @@ const pageRoot = ref(null)
 const viewportWidth = ref(typeof window !== 'undefined' ? window.innerWidth : 1280)
 const lightbox = ref(null)
 const lightboxImage = ref(null)
+const suppressLightboxClick = ref(false)
+const settleOffsetX = ref(0)
+const lightboxImageTransitionEnabled = ref(true)
 const dragState = ref({
     active: false,
     startX: 0,
     startY: 0,
     offsetX: 0,
     offsetY: 0,
+    moved: false,
+})
+const swipeState = ref({
+    pointerType: '',
+    startX: 0,
+    startY: 0,
+    tracking: false,
+    offsetX: 0,
+    moved: false,
+    suppressClick: false,
 })
 
 function collectGalleryItems() {
@@ -98,6 +111,22 @@ function getCurrentItem() {
     return lightbox.value?.items?.[lightbox.value.currentIndex] ?? null
 }
 
+function getPrevItem() {
+    if (!lightbox.value || lightbox.value.currentIndex <= 0) {
+        return null
+    }
+
+    return lightbox.value.items[lightbox.value.currentIndex - 1]
+}
+
+function getNextItem() {
+    if (!lightbox.value || lightbox.value.currentIndex >= lightbox.value.items.length - 1) {
+        return null
+    }
+
+    return lightbox.value.items[lightbox.value.currentIndex + 1]
+}
+
 function getCurrentViewState() {
     const currentItem = getCurrentItem()
     if (!lightbox.value || !currentItem) {
@@ -120,6 +149,37 @@ function setCurrentViewState(nextState) {
             [currentItem.id]: nextState,
         },
     }
+}
+
+function resetGestureState() {
+    dragState.value = {
+        active: false,
+        startX: 0,
+        startY: 0,
+        offsetX: 0,
+        offsetY: 0,
+        moved: false,
+    }
+    swipeState.value = {
+        pointerType: '',
+        startX: 0,
+        startY: 0,
+        tracking: false,
+        offsetX: 0,
+        moved: false,
+        suppressClick: false,
+    }
+}
+
+function startSettleAnimation(initialOffsetX) {
+    lightboxImageTransitionEnabled.value = false
+    settleOffsetX.value = initialOffsetX
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            lightboxImageTransitionEnabled.value = true
+            settleOffsetX.value = 0
+        })
+    })
 }
 
 function resetCurrentViewState() {
@@ -199,7 +259,7 @@ function canGoNext() {
     return Boolean(lightbox.value && lightbox.value.currentIndex < lightbox.value.items.length - 1)
 }
 
-function showPrevImage() {
+function showPrevImage(settleFromX = 0) {
     if (!canGoPrev()) {
         return
     }
@@ -208,10 +268,12 @@ function showPrevImage() {
         ...lightbox.value,
         currentIndex: lightbox.value.currentIndex - 1,
     }
-    endLightboxDrag()
+    if (settleFromX) {
+        startSettleAnimation(settleFromX)
+    }
 }
 
-function showNextImage() {
+function showNextImage(settleFromX = 0) {
     if (!canGoNext()) {
         return
     }
@@ -220,7 +282,9 @@ function showNextImage() {
         ...lightbox.value,
         currentIndex: lightbox.value.currentIndex + 1,
     }
-    endLightboxDrag()
+    if (settleFromX) {
+        startSettleAnimation(settleFromX)
+    }
 }
 
 function jumpToImage(index) {
@@ -232,7 +296,8 @@ function jumpToImage(index) {
         ...lightbox.value,
         currentIndex: index,
     }
-    endLightboxDrag()
+    settleOffsetX.value = 0
+    resetGestureState()
 }
 
 function analyseCurrentImageContrast() {
@@ -345,6 +410,16 @@ function handleLightboxPointerDown(event) {
     }
 
     const currentViewState = getCurrentViewState()
+    swipeState.value = {
+        pointerType: event.pointerType || '',
+        startX: event.clientX,
+        startY: event.clientY,
+        tracking: true,
+        offsetX: 0,
+        moved: false,
+        suppressClick: false,
+    }
+
     if (!currentViewState || currentViewState.scale <= 1) {
         return
     }
@@ -355,28 +430,108 @@ function handleLightboxPointerDown(event) {
         startY: event.clientY,
         offsetX: currentViewState.offsetX,
         offsetY: currentViewState.offsetY,
+        moved: false,
     }
 }
 
 function handleLightboxPointerMove(event) {
-    if (!dragState.value.active) {
+    if (dragState.value.active) {
+        event.preventDefault()
+
+        const deltaX = event.clientX - dragState.value.startX
+        const deltaY = event.clientY - dragState.value.startY
+
+        setCurrentViewState({
+            ...getCurrentViewState(),
+            offsetX: dragState.value.offsetX + deltaX,
+            offsetY: dragState.value.offsetY + deltaY,
+        })
+        dragState.value.moved = Math.abs(deltaX) > 6 || Math.abs(deltaY) > 6
+        return
+    }
+
+    if (!swipeState.value.tracking) {
+        return
+    }
+
+    const currentViewState = getCurrentViewState()
+    if (!currentViewState || currentViewState.scale > 1) {
+        return
+    }
+
+    const deltaX = event.clientX - swipeState.value.startX
+    const deltaY = event.clientY - swipeState.value.startY
+
+    if (Math.abs(deltaX) <= Math.abs(deltaY) * 1.1) {
         return
     }
 
     event.preventDefault()
 
-    const deltaX = event.clientX - dragState.value.startX
-    const deltaY = event.clientY - dragState.value.startY
+    const blockedAtEdge =
+        (deltaX > 0 && !canGoPrev()) ||
+        (deltaX < 0 && !canGoNext())
 
-    setCurrentViewState({
-        ...getCurrentViewState(),
-        offsetX: dragState.value.offsetX + deltaX,
-        offsetY: dragState.value.offsetY + deltaY,
-    })
+    swipeState.value.offsetX = blockedAtEdge ? deltaX * 0.35 : deltaX
+    swipeState.value.moved = Math.abs(swipeState.value.offsetX) > 10
 }
 
-function endLightboxDrag() {
-    dragState.value.active = false
+function handleLightboxImageClick() {
+    if (suppressLightboxClick.value) {
+        suppressLightboxClick.value = false
+        return
+    }
+
+    const currentViewState = getCurrentViewState()
+    if (!currentViewState) {
+        return
+    }
+
+    if (currentViewState.scale !== 1 || currentViewState.offsetX !== 0 || currentViewState.offsetY !== 0) {
+        resetCurrentViewState()
+    }
+}
+
+function endLightboxDrag(event) {
+    if (dragState.value.active && dragState.value.moved) {
+        suppressLightboxClick.value = true
+    }
+
+    if (swipeState.value.tracking && event && !dragState.value.active) {
+        const deltaX = swipeState.value.offsetX || (event.clientX - swipeState.value.startX)
+        const deltaY = event.clientY - swipeState.value.startY
+        const absX = Math.abs(deltaX)
+        const absY = Math.abs(deltaY)
+        const threshold = Math.min(180, viewportWidth.value * 0.18)
+        const didSwipe = absX > threshold && absX > absY * 1.2
+        suppressLightboxClick.value = swipeState.value.moved || dragState.value.moved
+
+        if (didSwipe) {
+            if (deltaX < 0) {
+                showNextImage(viewportWidth.value + deltaX)
+            } else {
+                showPrevImage(-viewportWidth.value + deltaX)
+            }
+
+            resetGestureState()
+            return
+        }
+    }
+
+    resetGestureState()
+}
+
+function getLightboxImageTransform(position) {
+    const currentViewState = getCurrentViewState() ?? { scale: 1, offsetX: 0, offsetY: 0 }
+    const swipeOffsetX = dragState.value.active ? 0 : swipeState.value.offsetX
+    const viewportSpan = viewportWidth.value
+
+    if (position === 'current') {
+        return `translate(calc(-50% + ${currentViewState.offsetX + swipeOffsetX + settleOffsetX.value}px), calc(-50% + ${currentViewState.offsetY}px)) scale(${currentViewState.scale})`
+    }
+
+    const baseOffset = position === 'prev' ? -viewportSpan : viewportSpan
+    return `translate(calc(-50% + ${baseOffset + swipeOffsetX}px), -50%) scale(1)`
 }
 
 watch(
@@ -520,18 +675,38 @@ if (typeof window !== 'undefined') {
                     </svg>
                 </button>
                 <div class="image-lightbox__viewport">
-                    <img
-                        ref="lightboxImage"
-                        class="image-lightbox__image"
-                        :src="getCurrentItem()?.src"
-                        :alt="getCurrentItem()?.alt"
-                        draggable="false"
-                        @dragstart.prevent
-                        @load="analyseCurrentImageContrast"
-                        :style="{
-                            transform: `translate(${getCurrentViewState()?.offsetX ?? 0}px, ${getCurrentViewState()?.offsetY ?? 0}px) scale(${getCurrentViewState()?.scale ?? 1})`,
-                        }"
-                    />
+                    <div class="image-lightbox__stage">
+                        <img
+                            v-if="getPrevItem() && (swipeState.offsetX > 0 || swipeState.tracking)"
+                            class="image-lightbox__image image-lightbox__image--adjacent"
+                            :src="getPrevItem()?.src"
+                            :alt="getPrevItem()?.alt"
+                            draggable="false"
+                            @dragstart.prevent
+                            :style="{ transform: getLightboxImageTransform('prev') }"
+                        />
+                        <img
+                            ref="lightboxImage"
+                            class="image-lightbox__image"
+                            :class="{ 'image-lightbox__image--no-transition': !lightboxImageTransitionEnabled }"
+                            :src="getCurrentItem()?.src"
+                            :alt="getCurrentItem()?.alt"
+                            draggable="false"
+                            @dragstart.prevent
+                            @load="analyseCurrentImageContrast"
+                            @click.stop="handleLightboxImageClick"
+                            :style="{ transform: getLightboxImageTransform('current') }"
+                        />
+                        <img
+                            v-if="getNextItem() && (swipeState.offsetX < 0 || swipeState.tracking)"
+                            class="image-lightbox__image image-lightbox__image--adjacent"
+                            :src="getNextItem()?.src"
+                            :alt="getNextItem()?.alt"
+                            draggable="false"
+                            @dragstart.prevent
+                            :style="{ transform: getLightboxImageTransform('next') }"
+                        />
+                    </div>
                 </div>
                 <div class="image-lightbox__meta">
                     <div class="image-lightbox__info">

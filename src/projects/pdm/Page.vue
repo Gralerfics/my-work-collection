@@ -1,6 +1,6 @@
 <script setup>
-import ProjectEquation from '../../components/ProjectEquation.vue'
-import globalBenchmarkSummary from './assets/global-benchmark-summary.png'
+import ProjectTypst from '../../components/ProjectTypst.vue'
+
 import localBenchmarkSummary from './assets/local-benchmark-summary.png'
 </script>
 
@@ -8,62 +8,54 @@ import localBenchmarkSummary from './assets/local-benchmark-summary.png'
     <div class="project-article pdm-article">
         <section class="project-article__section">
             <p class="detail-text">
-                <strong>Features.</strong> This project builds a complete simulation pipeline for a non-holonomic mobile manipulator: global planning in clutter, predictive local control on the Ackermann base, and a door-opening stage that couples chassis motion and arm motion in a single optimization target.
+                <strong>Features.</strong> This project conducts a simulation experiment pipeline for a non-holonomic mobile manipulator: global planning, local controlling (MPC and MPPI) on the Ackermann base, and a door-opening stage that couples chassis motion and arm motion in a single optimization target.
             </p>
             <p class="detail-text">
-                <strong>Stack.</strong> Python, PyBullet, custom RRT-family planners, MPC, MPPI, a kinematic Ackermann + Panda model, and a self-built evaluation pipeline for controller benchmarking and full-task demonstrations.
+                <strong>Stack.</strong> Python, PyBullet, custom RRT-family planners, custom MPC and MPPI solver, kinematic modeling, and self-built evaluation pipelines for controller benchmarking and full-task demonstrations.
             </p>
         </section>
 
         <section class="project-article__section">
-            <h2>System setup</h2>
+            <h2>Overview</h2>
             <p>
-                The task itself is simple to describe: the robot starts in a cluttered indoor scene, navigates to a door, aligns the manipulator with the handle, and opens the door without breaking the non-holonomic constraint of the base. What made the project interesting was that the whole pipeline had to be built as one system rather than as disconnected demos.
+                This is a course project whose main goal is to practice and verify planning and control algorithms such as RRT and MPC by setting a self-defined task. Our task is for a non-holonomic mobile manipulator to navigate through an obstacle-filled room, with a door added along the way that requires turning a handle to open.
             </p>
             <p>
-                In the final setup, the global planner produced a collision-free reference path in the map, the local controller tracked that path under Ackermann kinematics, and a separate predictive controller was used when the task changed from navigation to manipulation. That separation let us benchmark the local planner properly, while still keeping a full demonstration that actually completed the task.
+                The key to the door-opening task is that we need to coordinate the control of the chassis and the robotic arm to ensure that the robot does not collide with itself during the opening process.
             </p>
             <p>
-                This was a group project, not a solo build. According to the division recorded in the report, I was mainly responsible for the simulation environment, the MPC / MPPI controllers, the door-opening part of the system, and part of the experiments, analysis, and report writing. The global planners were mainly developed by the other group members.
+                Specifically, we use the RRT series algorithms (RRT, RRT*, Informed-RRT*) to implement the global planner for planning navigation paths, and MPC / MPPI to implement the local controller for tracking paths, avoiding obstacles, and manipulating door handles. Then we conduct experiments and evaluate and compare the algorithm performance.
+            </p>
+            <p>
+                This was a group project. I was mainly responsible for the simulation environment, the MPC / MPPI controllers, the door-opening part of the system, and part of the experiments, analysis, and report writing. The part of global planners is not my work, so I won't go into details.
             </p>
         </section>
 
         <section class="project-article__section">
-            <h2>Global planning</h2>
+            <h2>Local controllers for path tracking</h2>
             <p>
-                The project uses a hierarchical structure, so the global planner is not responsible for exact tracking. Its role is to give the base a feasible route through the clutter and to hand a local reference segment to the controller. In the report and codebase, we benchmarked several RRT-family planners, including informed variants, but the important point here is the interface: the local controller always works on a short reference path instead of a single point target.
+                First, disregarding the door-opening task, the local controllers at this stage primarily control the chassis to track the path and avoid obstacles.
             </p>
             <p>
-                That design made the local controller easier to tune. It also made failure modes much easier to read. If the robot drifted or oscillated, I could inspect whether the issue came from the short-horizon predictive model or from the reference path itself, instead of debugging the whole stack as one opaque planner.
+                I implemented both MPC and MPPI on the Ackermann model. The state is the base pose <code>[x, y, theta]</code>, and the control is <code>[v, delta]</code>. The chassis dynamics are written in continuous form as the bicycle model:
             </p>
-            <figure class="project-media project-media--large">
-                <img :src="globalBenchmarkSummary" alt="Benchmark summary for the global planner and full pipeline" />
-                <figcaption>
-                    Benchmark summary used in the report to compare the planner choices inside the full pipeline.
-                </figcaption>
-            </figure>
-        </section>
-
-        <section class="project-article__section">
-            <h2>Predictive local control</h2>
-            <p>
-                For navigation, I implemented both MPC and MPPI on the same Ackermann state model. The state is the base pose <code>[x, y, theta]</code>, and the control is <code>[v, delta]</code>. In the report, the chassis dynamics are written in continuous form as the bicycle model:
-            </p>
-            <ProjectEquation :framed="false" caption="Ackermann chassis model used throughout the planning and control stack.">
-$ vec(dot(x), dot(y), dot(theta)) = vec(v cos(theta), v sin(theta), v / L tan(delta)) $
-            </ProjectEquation>
+            <ProjectTypst :framed="false" caption="Ackermann chassis kinematic model, where L is the wheelbase.">
+                $
+                vec(dot(x), dot(y), dot(theta)) = vec(v cos(theta), v sin(theta), v / L tan(delta))
+                $
+            </ProjectTypst>
             <p>
                 For local path tracking, the report defines a shared finite-horizon objective and uses it as the common benchmark target for both MPC and MPPI. The cost includes path-tracking error, control effort, a soft collision penalty, and a terminal term:
             </p>
-            <ProjectEquation :framed="false" caption="Path-tracking objective in the report.">
+            <ProjectTypst :framed="false" caption="Path-tracking objective in the report.">
 $ J = sum_(k=0)^(N-1) (w_p norm(p_k - p_k^*)^2 + w_u norm(u_k)^2 + w_c c(p_k)) + w_T norm(p_N - p_N^*)^2 $
-            </ProjectEquation>
+            </ProjectTypst>
             <p>
                 The benchmark metric reported later is the RMSE-ATE between the reference trajectory and the actual tracked trajectory. This is the quantity used in the report tables and scatter plot when comparing controller settings:
             </p>
-            <ProjectEquation :framed="false" caption="RMSE-ATE definition used in the local-planner benchmark.">
+            <ProjectTypst :framed="false" caption="RMSE-ATE definition used in the local-planner benchmark.">
 $ "RMSE-ATE" = sqrt(1 / N sum_(k=1)^N norm(p_u(k delta) - p(k delta))_2^2) $
-            </ProjectEquation>
+            </ProjectTypst>
             <p>
                 The point of implementing both controllers was not to claim that one dominates the other everywhere. The benchmark instead made the trade-off visible. MPC gave cleaner tracking when the horizon was short and the environment was not too adversarial, but the solve time rose quickly with horizon length. MPPI was much cheaper per step and much easier to keep stable at high success rate once the horizon was long enough, but it was more sensitive to rollout count and produced rougher tracking in some settings.
             </p>
@@ -85,12 +77,12 @@ $ "RMSE-ATE" = sqrt(1 / N sum_(k=1)^N norm(p_u(k delta) - p(k delta))_2^2) $
             </p>
             <p>
                 In the report, this stage is written as a unified predictive controller over the coupled chassis-arm state. The objective penalizes end-effector position error, end-effector orientation error through
-                <ProjectEquation inline>$ "ToAngle"(R_"ee"^T R_"ee"^*) $</ProjectEquation>
+                <ProjectTypst inline>$ "ToAngle"(R_"ee"^T R_"ee"^*) $</ProjectTypst>
                 , control effort, and an additional XY penalty that discourages the end effector from entering the projected chassis footprint.
             </p>
-            <ProjectEquation :framed="false" caption="Unified predictive-control objective for the door-opening task.">
+            <ProjectTypst :framed="false" caption="Unified predictive-control objective for the door-opening task.">
 $ J = sum_(k=0)^(N-1) (w_p norm(p_"ee" - p_"ee"^*)^2 + w_o "ToAngle"(R_"ee"^T R_"ee"^*)^2 + w_u norm(u_k)^2 + w_"xy" max(0, R^2 - norm(p_"ee,xy" - p_"xy")^2)) + w_T norm(p_N - p_N^*)^2 $
-            </ProjectEquation>
+            </ProjectTypst>
             <p>
                 This stage is also where the non-holonomic constraint actually matters. If the controller only solves the arm pose, it is easy to drive the manipulator into an unreachable or badly conditioned posture. The predictive formulation instead lets the chassis and arm compensate for each other over the horizon, which is why the full demonstration can keep the grasp and continue the opening motion instead of stopping at first contact.
             </p>
