@@ -72,49 +72,47 @@ import result1 from './assets/res-1.jpg'
                 <img :src="runtimePhoto" alt="Testing script applications from onboard storage" />
                 <figcaption>A prototype for the real-time system as a test for the runtime. Scripts are loaded as applications, not as hidden test code.</figcaption>
             </figure>
-            <ProjectCodeBlock
-                lang="python"
-                :code="String.raw`
-                    # icon: notebook
-                    # color: 0x4F7BD9
-                    # name: Gravity Demo
-
-                    import zws
-                    import lvgl as lv
-
-                    field = zws.Display.getField()
-                    label = lv.label(field)
-
-                    while True:
-                        ax, ay, az = zws.IMU.getAcceleration()
-                        label.set_text(f'g = ({ax:.2f}, {ay:.2f}, {az:.2f})')
-                        zws.System.delayMs(40)
-                `"
-            />
         </section>
 
         <section class="project-article__section">
-            <h2>Python-facing API surface</h2>
+            <h2>Embedded Python API</h2>
             <p>
-                The API document is rough, but it is enough to reconstruct the intended software boundary.
-                The standard library wrapper provides timing, display brightness, RTC access, and
-                <code>Display.getField()</code> for acquiring the root object of the current app screen. The
-                peripheral wrapper exposes IMU, battery, microphone, and vibrator. On the GUI side, scripts
+                The API document is rough, but it is enough to reconstruct the intended software boundary. The standard library wrapper <code>ZeptoWatchStdLib</code> provides timing, display brightness, RTC access, etc. The peripheral wrapper <code>ZeptoWatchPeriphLib</code> exposes IMU, battery, microphone, and vibrator. On the GUI side, scripts
                 work directly with wrapped LVGL types and callbacks.
             </p>
             <p>
-                <code>Display.getField()</code> is a useful detail. The documentation explicitly discourages
-                building top-level UI objects directly on the raw active screen, because transient system UI
-                such as pull-down panels can make objects appear in the wrong place. A dedicated application
-                root object avoids that. That is a small implementation detail, but it shows the project is
-                solving integration problems at the platform boundary instead of only exposing raw library
-                calls.
+                For example, you can call <code>ZeptoWatchStdLib.Display.setBrightness</code> to set the screen brightness, which controls the MOSFET on the LCD screen backlight constant current input by controlling the output PWM pulse width. A simple example of continuously adjusting the screen brightness and temperature measuring is shown below:
             </p>
+            <ProjectCodeBlock
+                lang="python"
+                :code="String.raw`
+                ###ICON=scripts;NAME=LightTest;COLOR=16751415###
+
+                import ZeptoWatchStdLib as zws
+                import ZeptoWatchPeriphLib as zwp
+
+                zwp.IMU.initialize()
+
+                i = 5
+                j = 1
+                while 1 == 1:
+                    zws.Display.setBrightness(i)
+                    if i >= 95:
+                        j = -1
+                    if i <= 5:
+                        j = 1
+                    i = i + j
+
+                    k = zwp.IMU.getTemperature()
+                    print(k)
+
+                    zws.System.delayMs(3)
+
+                ###END###
+                `"
+            />
             <p>
-                The calculator example makes the model concrete: create LVGL objects on the app field, assign
-                IDs to buttons, register <code>lv.EVENT.CLICKED</code> callbacks, and keep the main loop alive
-                with RTOS-backed delays. The scripting layer is therefore not just sensor readouts; it is able
-                to build interactive UI and event-driven behaviour on top of the firmware.
+                You can connect the watch to the computer using Type-C connector and copy the script into the filesystem. The watch will detect the new script and recognize it as an application.
             </p>
         </section>
 
@@ -141,9 +139,9 @@ import result1 from './assets/res-1.jpg'
         </section>
 
         <section class="project-article__section">
-            <h2>Limitations</h2>
+            <h2>Conclusion</h2>
             <p>
-                TODO.
+                This was my first embedded design practice, so there are still many shortcomings. The PCB layout design has many problems, such as the poor placement of the Bluetooth module and the lack of any shielding; the battery and structural design also have many unreasonable aspects. However, the peripherals and firmware are very comprehensive, making it a good introductory exercise.
             </p>
         </section>
     </div>

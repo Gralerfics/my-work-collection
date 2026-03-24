@@ -1368,22 +1368,14 @@ a.education-course-list__main:hover {
     user-select: none;
 }
 
-.project-code-block__line-number::before {
-    counter-increment: project-code-line;
-    content: counter(project-code-line);
-}
-
 .project-code-block__line-content {
     display: block;
     white-space: pre;
 }
 
-.project-article pre code {
-    counter-reset: project-code-line;
-}
-
 .project-code-block {
     margin-top: 16px;
+    margin-bottom: 16px;
     border-radius: 10px;
     overflow: hidden;
     box-shadow: 0 4px 12px rgba(133, 145, 160, 0.05);
