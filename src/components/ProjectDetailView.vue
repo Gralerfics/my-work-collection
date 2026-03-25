@@ -48,6 +48,7 @@ const swipeState = ref({
     moved: false,
     suppressClick: false,
 })
+let mediaGridNormalizeFrame = 0
 
 function collectGalleryItems() {
     if (!pageRoot.value) {
@@ -73,6 +74,68 @@ function normalizeArticleLinks() {
     pageRoot.value.querySelectorAll('.section-body .project-article a[href]').forEach((link) => {
         link.setAttribute('target', '_blank')
         link.setAttribute('rel', 'noreferrer')
+    })
+}
+
+function getProjectMediaHeight(figure) {
+    const media =
+        figure.querySelector(':scope > .project-media__frame') ||
+        figure.querySelector(':scope > img, :scope > video, :scope > canvas, :scope > svg')
+
+    if (!media) {
+        return 0
+    }
+
+    return media.getBoundingClientRect().height
+}
+
+function normalizeProjectMediaGrids() {
+    if (!pageRoot.value) {
+        return
+    }
+
+    pageRoot.value.querySelectorAll('.project-media-grid').forEach((grid) => {
+        const figures = Array.from(grid.querySelectorAll(':scope > .project-media'))
+        if (!figures.length) {
+            grid.style.removeProperty('--project-media-area-height')
+            return
+        }
+
+        let tallestHeight = 0
+        figures.forEach((figure) => {
+            tallestHeight = Math.max(tallestHeight, getProjectMediaHeight(figure))
+        })
+
+        if (tallestHeight > 0) {
+            grid.style.setProperty('--project-media-area-height', `${Math.ceil(tallestHeight)}px`)
+        } else {
+            grid.style.removeProperty('--project-media-area-height')
+        }
+    })
+}
+
+function scheduleProjectMediaNormalization() {
+    if (typeof window === 'undefined') {
+        return
+    }
+
+    window.cancelAnimationFrame(mediaGridNormalizeFrame)
+    mediaGridNormalizeFrame = window.requestAnimationFrame(() => {
+        normalizeProjectMediaGrids()
+    })
+}
+
+function bindProjectMediaLoadHandlers() {
+    if (!pageRoot.value) {
+        return
+    }
+
+    pageRoot.value.querySelectorAll('.project-media-grid img').forEach((image) => {
+        if (image.complete) {
+            return
+        }
+
+        image.addEventListener('load', scheduleProjectMediaNormalization, { once: true })
     })
 }
 
@@ -370,6 +433,7 @@ function handleKeydown(event) {
 
 function handleResize() {
     viewportWidth.value = window.innerWidth
+    scheduleProjectMediaNormalization()
 }
 
 function handleLightboxWheel(event) {
@@ -540,12 +604,17 @@ watch(
         closeLightbox()
         await nextTick()
         normalizeArticleLinks()
+        bindProjectMediaLoadHandlers()
+        scheduleProjectMediaNormalization()
     },
     { immediate: true },
 )
 
 onBeforeUnmount(() => {
     document.body.style.overflow = ''
+    if (typeof window !== 'undefined') {
+        window.cancelAnimationFrame(mediaGridNormalizeFrame)
+    }
 })
 
 if (typeof window !== 'undefined') {

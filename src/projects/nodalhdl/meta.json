@@ -5,7 +5,7 @@
     "groups": ["Digital Design", "Graphics"],
     "status": "To be improved",
     "repo": "https://github.com/Gralerfics/nodalhdl",
-    "intro": "A Python-centered digital circuit design toolchain focused on structural description, automatic pipelining, combinational high-level synthesis, and HDL generation.",
+    "intro": "A set of pipeline digital circuit design tools tightly embedded in the Python workflow, supporting automatic pipelining, combinatorial logic high-level synthesis and other features.",
     "tags": ["HDL", "FPGA", "Python", "HLS", "Toolchain"],
     "priority": 1000
 }

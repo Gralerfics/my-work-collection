@@ -1507,20 +1507,26 @@ a.education-course-list__main:hover {
     display: grid;
     gap: 18px;
     margin-top: 16px;
+    align-items: start;
+    --project-media-area-height: 160px;
 }
 
 .project-media-grid--two {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     padding-inline: 60px;
+    --project-media-area-height: 180px;
 }
 
 .project-media-grid--three {
     grid-template-columns: repeat(3, minmax(0, 1fr));
     padding-inline: 20px;
+    --project-media-area-height: 130px;
 }
 
 .project-media-grid > .project-media {
     margin-top: 0;
+    grid-template-rows: var(--project-media-area-height) auto;
+    align-content: start;
 }
 
 .project-media img {
@@ -1528,6 +1534,19 @@ a.education-course-list__main:hover {
     border: 1px solid var(--border);
     border-radius: 8px;
     background: rgba(255, 255, 255, 0.56);
+}
+
+.project-media-grid > .project-media > img,
+.project-media-grid > .project-media > .project-media__frame {
+    width: auto;
+    max-width: 100%;
+    max-height: 100%;
+    justify-self: center;
+    align-self: center;
+}
+
+.project-media-grid > .project-media > figcaption {
+    align-self: start;
 }
 
 .project-media figcaption {
