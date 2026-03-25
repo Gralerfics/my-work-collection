@@ -1,11 +1,12 @@
 {
-  "title": "HTTP Server and File Manager",
-  "subtitle": "From protocol implementation to application workflow",
-  "time": "2023.03 - 2023.06",
-  "groups": ["Web"],
-  "status": "Completed",
-  "repo": "https://github.com/Gralerfics/http_file_manager",
-  "intro": "A Python project implementing an HTTP server without relying on web frameworks, then extending it into a complete file manager application.",
-  "tags": ["Python", "HTTP/1.1", "Backend", "Frontend"],
-  "priority": 600
+    "title": "HTTP Server and File Manager",
+    "subtitle": "A manually implemented HTTP server and file manager application",
+    "time": "2023.11 - 2024.01",
+    "groups": ["Web"],
+    "status": "Completed",
+    "collaboration": "Collaborative Project",
+    "repo": "https://github.com/Gralerfics/http_file_manager",
+    "intro": "A Python project implementing an HTTP server without relying on web frameworks, then extending it into a file manager application.",
+    "tags": ["Python", "HTTP/1.1", "Socket", "Framework Development"],
+    "priority": 600
 }

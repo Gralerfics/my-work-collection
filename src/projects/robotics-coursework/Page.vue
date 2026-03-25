@@ -2,6 +2,7 @@
 import ee211Demo from './assets/ee211-demo.gif'
 import ee346Demo from './assets/ee346-demo.gif'
 import ee368Setup from './assets/ee368-setup.jpg'
+import graspShot from './assets/grasp.png'
 </script>
 
 <template>
@@ -50,10 +51,16 @@ import ee368Setup from './assets/ee368-setup.jpg'
             <p>
                 There were many equipment problems during this process, and the final investigation revealed that the issues were related to the software interface and communication middleware, which were then resolved.
             </p>
-            <figure class="project-media project-media--portrait">
-                <img :src="ee211Demo" alt="EE211 ROS2 demo" />
-                <figcaption>The task extends navigation into marker-driven interaction around the target object.</figcaption>
-            </figure>
+            <div class="project-media-grid project-media-grid--two">
+                <figure class="project-media project-media--portrait">
+                    <img :src="ee211Demo" alt="EE211 ROS2 demo" />
+                    <figcaption>The task extends navigation into marker-driven interaction around the target object.</figcaption>
+                </figure>
+                <figure class="project-media project-media--portrait">
+                    <img :src="graspShot" alt="Grasping demo" />
+                    <figcaption>Adjust the robotic arm pose according to the direction of the cube.</figcaption>
+                </figure>
+            </div>
         </section>
 
         <section class="project-article__section">

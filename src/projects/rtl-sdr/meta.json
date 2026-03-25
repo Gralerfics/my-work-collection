@@ -1,11 +1,11 @@
 {
-  "title": "RTL-SDR Project",
-  "subtitle": "Software-defined radio hardware design and validation",
-  "time": "2022.05 - 2022.07",
-  "groups": ["Embedded"],
-  "status": "Completed",
-  "repo": "https://github.com/Gralerfics/RTL-SDR-Project",
-  "intro": "A low-cost software-defined radio receiver project inspired by classical RTL-SDR architecture and validated with FM reception.",
-  "tags": ["SDR", "RF", "Hardware", "Signal Processing"],
-  "priority": 650
+    "title": "RTL-SDR Project",
+    "subtitle": "Software-defined radio hardware design and validation",
+    "time": "2023.01 - 2023.02",
+    "groups": ["Embedded"],
+    "status": "Completed",
+    "repo": "https://github.com/Gralerfics/RTL-SDR-Project",
+    "intro": "A low-cost software-defined radio receiver project based on RTL-SDR and validated with FM reception.",
+    "tags": ["SDR", "RF", "Signal Processing"],
+    "priority": 650
 }
