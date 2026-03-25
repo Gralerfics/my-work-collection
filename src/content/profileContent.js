@@ -20,7 +20,8 @@ export const researchFocus = [
 
 export const resumeContent = {
     profileStatement: [
-        'TODO.',
+        '我是……',
+        '我对……',
     ],
     education: [
         {
