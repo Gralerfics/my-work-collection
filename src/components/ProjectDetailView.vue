@@ -62,6 +62,8 @@ const pinchState = ref({
 })
 const activeTouchPoints = new Map()
 let mediaGridNormalizeFrame = 0
+let mediaGridNormalizeTimeout = 0
+let mediaGridResizeObserver = null
 
 function collectGalleryItems() {
     if (!pageRoot.value) {
@@ -147,6 +149,33 @@ function scheduleProjectMediaNormalization() {
     })
 }
 
+function scheduleProjectMediaNormalizationBurst() {
+    if (typeof window === 'undefined') {
+        return
+    }
+
+    scheduleProjectMediaNormalization()
+    window.clearTimeout(mediaGridNormalizeTimeout)
+    mediaGridNormalizeTimeout = window.setTimeout(() => {
+        scheduleProjectMediaNormalization()
+    }, 120)
+}
+
+function observeProjectMediaGrids() {
+    if (typeof window === 'undefined' || !('ResizeObserver' in window) || !pageRoot.value) {
+        return
+    }
+
+    mediaGridResizeObserver?.disconnect()
+    mediaGridResizeObserver = new window.ResizeObserver(() => {
+        scheduleProjectMediaNormalization()
+    })
+
+    pageRoot.value.querySelectorAll('.project-media-grid').forEach((grid) => {
+        mediaGridResizeObserver.observe(grid)
+    })
+}
+
 function bindProjectMediaLoadHandlers() {
     if (!pageRoot.value) {
         return
@@ -154,10 +183,29 @@ function bindProjectMediaLoadHandlers() {
 
     pageRoot.value.querySelectorAll('.project-media-grid img').forEach((image) => {
         if (image.complete) {
+            if (typeof image.decode === 'function') {
+                image.decode()
+                    .catch(() => {})
+                    .finally(() => {
+                        scheduleProjectMediaNormalizationBurst()
+                    })
+            }
             return
         }
 
-        image.addEventListener('load', scheduleProjectMediaNormalization, { once: true })
+        image.addEventListener('load', scheduleProjectMediaNormalizationBurst, { once: true })
+        image.addEventListener('error', scheduleProjectMediaNormalizationBurst, { once: true })
+    })
+
+    pageRoot.value.querySelectorAll('.project-media-grid video').forEach((video) => {
+        if (video.readyState >= 1) {
+            scheduleProjectMediaNormalizationBurst()
+            return
+        }
+
+        video.addEventListener('loadedmetadata', scheduleProjectMediaNormalizationBurst, { once: true })
+        video.addEventListener('loadeddata', scheduleProjectMediaNormalizationBurst, { once: true })
+        video.addEventListener('error', scheduleProjectMediaNormalizationBurst, { once: true })
     })
 }
 
@@ -769,7 +817,8 @@ watch(
         await nextTick()
         normalizeArticleLinks()
         bindProjectMediaLoadHandlers()
-        scheduleProjectMediaNormalization()
+        observeProjectMediaGrids()
+        scheduleProjectMediaNormalizationBurst()
     },
     { immediate: true },
 )
@@ -778,7 +827,9 @@ onBeforeUnmount(() => {
     document.body.style.overflow = ''
     if (typeof window !== 'undefined') {
         window.cancelAnimationFrame(mediaGridNormalizeFrame)
+        window.clearTimeout(mediaGridNormalizeTimeout)
     }
+    mediaGridResizeObserver?.disconnect()
 })
 
 if (typeof window !== 'undefined') {
