@@ -5,6 +5,7 @@ import rendererWasmUrl from '@myriaddreamin/typst-ts-renderer/wasm?url'
 import compilerWasmUrl from '@myriaddreamin/typst-ts-web-compiler/pkg/typst_ts_web_compiler_bg.wasm?url'
 import { setImportWasmModule as setRendererImportWasmModule } from '@myriaddreamin/typst-ts-renderer/pkg/typst_ts_renderer.mjs'
 import { setImportWasmModule as setCompilerImportWasmModule } from '@myriaddreamin/typst-ts-web-compiler/pkg/typst_ts_web_compiler.mjs'
+import { useI18n } from '../i18n/useI18n'
 
 const props = defineProps({
     code: {
@@ -30,6 +31,7 @@ const props = defineProps({
 })
 
 let typstWasmConfigured = false
+const { t } = useI18n()
 
 function configureTypstWasm() {
     if (typstWasmConfigured) {
@@ -106,7 +108,7 @@ watch(
             }
 
             svgMarkup.value = ''
-            renderError.value = error instanceof Error ? error.message : 'Failed to render equation.'
+            renderError.value = error instanceof Error ? error.message : t('common.typstError')
         }
     },
     { immediate: true },

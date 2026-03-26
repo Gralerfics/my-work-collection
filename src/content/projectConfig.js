@@ -5,7 +5,8 @@ export const projectConfig = {
         Robotics: 40,
         Embedded: 30,
         'Digital Design': 20,
-        Web: 10,
+        Graphics: 20,
+        Web: 0,
         Other: -100,
     },
 }

@@ -1,5 +1,6 @@
 <script setup>
 import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+import { useI18n } from '../i18n/useI18n'
 
 const props = defineProps({
   profile: {
@@ -21,6 +22,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['open-projects', 'open-project', 'open-resume'])
+const { t } = useI18n()
 
 const columnCount = ref(1)
 
@@ -63,7 +65,7 @@ onBeforeUnmount(() => {
     <div class="page page-home">
         <section class="hero-panel">
             <div class="hero-panel__body">
-                <p class="eyebrow">Portfolio</p>
+                <p class="eyebrow">{{ t('home.eyebrow') }}</p>
                 <h1>{{ profile.handle }}</h1>
                 <p class="hero-panel__title">{{ profile.title }}</p>
                 <p class="hero-panel__intro">{{ profile.intro }}</p>
@@ -71,10 +73,10 @@ onBeforeUnmount(() => {
 
                 <div class="hero-panel__actions">
                     <button type="button" class="button button--primary" @click="emit('open-projects')">
-                        Browse Projects
+                        {{ t('home.browseProjects') }}
                     </button>
                     <button type="button" class="button" @click="emit('open-resume')">
-                        Resume
+                        {{ t('home.resume') }}
                     </button>
                 </div>
             </div>
@@ -82,8 +84,8 @@ onBeforeUnmount(() => {
 
         <section class="editorial-section">
             <div class="section-label">
-                <p class="eyebrow">Overview</p>
-                <h2>Interests</h2>
+                <p class="eyebrow">{{ t('home.overviewEyebrow') }}</p>
+                <h2>{{ t('home.interestsTitle') }}</h2>
             </div>
             <div class="section-body section-body--boxed">
                 <ul class="list-clean focus-list">
@@ -94,8 +96,8 @@ onBeforeUnmount(() => {
 
         <section class="editorial-section">
             <div class="section-label">
-                <p class="eyebrow">Preview</p>
-                <h2>Selected projects</h2>
+                <p class="eyebrow">{{ t('home.previewEyebrow') }}</p>
+                <h2>{{ t('home.selectedProjectsTitle') }}</h2>
       </div>
       <div class="section-body">
         <div class="home-preview-grid">
@@ -121,7 +123,7 @@ onBeforeUnmount(() => {
                 <span>{{ project.title }}</span>
               </div>
               <div class="home-preview-card__body">
-                <p class="project-card__meta">{{ project.groups.join(' / ') }}</p>
+                <p class="project-card__meta">{{ (project.displayGroups ?? project.groups).join(' / ') }}</p>
                 <h3>{{ project.title }}</h3>
                 <p class="home-preview-card__summary">{{ project.subtitle }}</p>
                 <div class="home-preview-card__tags">
@@ -134,9 +136,9 @@ onBeforeUnmount(() => {
           </div>
         </div>
 
-        <div class="home-preview-actions">
+                <div class="home-preview-actions">
                     <button type="button" class="text-link" @click="emit('open-projects')">
-                        Open full project index
+                        {{ t('home.fullIndex') }}
                     </button>
                 </div>
             </div>

@@ -1,5 +1,6 @@
 <script setup>
-import { computed, ref } from 'vue'
+import { computed, ref, watch } from 'vue'
+import { useI18n } from '../i18n/useI18n'
 
 const props = defineProps({
     code: {
@@ -12,7 +13,8 @@ const props = defineProps({
     },
 })
 
-const copyLabel = ref('Copy')
+const { t, locale } = useI18n()
+const copyLabel = ref(t('common.copy'))
 function escapeHtml(text) {
     return text
         .replaceAll('&', '&amp;')
@@ -84,15 +86,21 @@ const highlightedLines = computed(() =>
 async function copyCode() {
     try {
         await navigator.clipboard.writeText(normalizedCode.value)
-        copyLabel.value = 'Copied'
+        copyLabel.value = t('common.copied')
     } catch {
-        copyLabel.value = 'Failed'
+        copyLabel.value = t('common.copyFailed')
     }
 
     window.setTimeout(() => {
-        copyLabel.value = 'Copy'
+        copyLabel.value = t('common.copy')
     }, 1200)
 }
+
+const copyButtonLabel = computed(() => copyLabel.value)
+
+watch(locale, () => {
+    copyLabel.value = t('common.copy')
+})
 </script>
 
 <template>
@@ -100,7 +108,7 @@ async function copyCode() {
         <div class="project-code-block__toolbar">
             <span class="project-code-block__label">{{ normalizedLang }}</span>
             <button type="button" class="project-code-block__copy" @click="copyCode">
-                {{ copyLabel }}
+                {{ copyButtonLabel }}
             </button>
         </div>
         <pre><code>

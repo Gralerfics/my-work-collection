@@ -1,6 +1,6 @@
 import { projectConfig } from '../content/projectConfig'
 
-const metaModules = import.meta.glob('./*/meta.json', {
+const metaModules = import.meta.glob('./*/meta.{json,js}', {
   eager: true,
   import: 'default',
 })

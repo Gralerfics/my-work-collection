@@ -1,5 +1,6 @@
 <script setup>
 import { computed, nextTick, onBeforeUnmount, ref, watch } from 'vue'
+import { useI18n } from '../i18n/useI18n'
 
 const props = defineProps({
     currentProject: {
@@ -17,6 +18,7 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['select-project'])
+const { t, locale } = useI18n()
 
 const relatedProjects = computed(() =>
     props.projects
@@ -61,7 +63,7 @@ function collectGalleryItems() {
             src: image.currentSrc || image.src,
             alt: image.alt || '',
             caption: image.classList.contains('project-cover__image')
-                ? '(cover)'
+                ? t('common.cover')
                 : image.closest('figure')?.querySelector('figcaption')?.textContent?.trim() || '',
         }))
 }
@@ -608,7 +610,7 @@ function getLightboxImageTransform(position) {
 }
 
 watch(
-    () => props.currentProject.slug,
+    () => `${props.currentProject.slug}:${locale.value}`,
     async () => {
         closeLightbox()
         await nextTick()
@@ -649,7 +651,7 @@ if (typeof window !== 'undefined') {
 
         <section class="project-hero">
             <div class="project-hero__body">
-                <p class="eyebrow">{{ currentProject.groups.join(' / ') }}</p>
+                <p class="eyebrow">{{ (currentProject.displayGroups ?? currentProject.groups).join(' / ') }}</p>
                 <h1>{{ currentProject.title }}</h1>
                 <p class="project-hero__subtitle">{{ currentProject.subtitle }}</p>
 
@@ -681,19 +683,19 @@ if (typeof window !== 'undefined') {
 
         <section class="editorial-section">
             <div class="section-label">
-                <p class="eyebrow">Project</p>
-                <h2>Details</h2>
+                <p class="eyebrow">{{ t('projectDetail.eyebrow') }}</p>
+                <h2>{{ t('projectDetail.title') }}</h2>
             </div>
             <div class="section-body" @click="handleImageClick">
                 <component :is="currentProject.pageComponent" />
-                <p class="project-article__ending" aria-hidden="true">§</p>
+                <p class="project-article__ending" aria-hidden="true">*</p>
             </div>
         </section>
 
         <section class="editorial-section editorial-section--related">
             <div class="section-label">
-                <p class="eyebrow">Browse</p>
-                <h2>Other projects</h2>
+                <p class="eyebrow">{{ t('projectDetail.browseEyebrow') }}</p>
+                <h2>{{ t('projectDetail.otherProjects') }}</h2>
             </div>
             <div class="section-body">
                 <div class="project-list">
@@ -705,7 +707,7 @@ if (typeof window !== 'undefined') {
                         @click="emit('select-project', project.slug)"
                     >
                         <div>
-                            <p class="project-list__meta">{{ project.groups.join(' / ') }}</p>
+                            <p class="project-list__meta">{{ (project.displayGroups ?? project.groups).join(' / ') }}</p>
                             <h3>{{ project.title }}</h3>
                         </div>
                         <p>{{ project.subtitle }}</p>
@@ -730,7 +732,7 @@ if (typeof window !== 'undefined') {
                 @pointercancel="endLightboxDrag"
             >
                 <button type="button" class="image-lightbox__close" @click="closeLightbox">
-                    Close
+                    {{ t('common.close') }}
                 </button>
                 <button
                     v-if="canGoPrev()"

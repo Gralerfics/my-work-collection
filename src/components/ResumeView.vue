@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import { useI18n } from '../i18n/useI18n'
 
 const toLines = (detail) => (Array.isArray(detail) ? detail : [detail])
 const openEducationEntries = ref([])
@@ -43,13 +44,14 @@ defineProps({
 })
 
 const emit = defineEmits(['open-projects'])
+const { t } = useI18n()
 </script>
 
 <template>
     <div class="page page-resume">
         <section class="resume-hero">
             <div class="resume-hero__body">
-                <p class="eyebrow">Resume</p>
+                <p class="eyebrow">{{ t('resume.eyebrow') }}</p>
                 <h1>{{ profile.realName }}</h1>
                 <p class="resume-hero__title">{{ profile.title }}</p>
                 <p class="resume-hero__contact">{{ profile.email }}</p>
@@ -58,8 +60,8 @@ const emit = defineEmits(['open-projects'])
 
         <section class="editorial-section">
             <div class="section-label">
-                <p class="eyebrow">Profile</p>
-                <h2>Personal statement</h2>
+                <p class="eyebrow">{{ t('resume.profileEyebrow') }}</p>
+                <h2>{{ t('resume.profileTitle') }}</h2>
             </div>
             <div class="section-body resume-prose">
                 <p v-for="paragraph in resumeContent.profileStatement" :key="paragraph">{{ paragraph }}</p>
@@ -68,8 +70,8 @@ const emit = defineEmits(['open-projects'])
 
         <section class="editorial-section">
             <div class="section-label">
-                <p class="eyebrow">Education</p>
-                <h2>Academic timeline</h2>
+                <p class="eyebrow">{{ t('resume.educationEyebrow') }}</p>
+                <h2>{{ t('resume.educationTitle') }}</h2>
             </div>
             <div class="section-body">
                 <ol class="timeline list-clean">
@@ -89,8 +91,8 @@ const emit = defineEmits(['open-projects'])
                                 >
                                     {{
                                         isEducationOpen(`${item.time}-${item.title}`)
-                                            ? 'Hide courses & grades'
-                                            : 'Courses & grades details'
+                                            ? t('resume.hideCourses')
+                                            : t('resume.showCourses')
                                     }}
                                 </button>
                             </div>
@@ -164,17 +166,14 @@ const emit = defineEmits(['open-projects'])
 
         <section class="editorial-section">
             <div class="section-label">
-                <p class="eyebrow">Projects</p>
-                <h2>Project experience</h2>
+                <p class="eyebrow">{{ t('resume.projectsEyebrow') }}</p>
+                <h2>{{ t('resume.projectsTitle') }}</h2>
             </div>
             <div class="section-body resume-prose">
-                <p>
-                    Selected projects are documented on the Projects page, where each entry includes
-                    overview information and a more detailed page.
-                </p>
+                <p>{{ t('resume.projectsSummary') }}</p>
                 <div>
                     <button type="button" class="button" @click="emit('open-projects')">
-                        Open Projects Page
+                        {{ t('resume.openProjects') }}
                     </button>
                 </div>
             </div>
@@ -182,8 +181,8 @@ const emit = defineEmits(['open-projects'])
 
         <section class="editorial-section">
             <div class="section-label">
-                <p class="eyebrow">Skills</p>
-                <h2>Technical skills</h2>
+                <p class="eyebrow">{{ t('resume.skillsEyebrow') }}</p>
+                <h2>{{ t('resume.skillsTitle') }}</h2>
             </div>
             <div class="section-body section-body--boxed">
                 <div class="resume-detail-list">
@@ -203,8 +202,8 @@ const emit = defineEmits(['open-projects'])
 
         <section class="editorial-section">
             <div class="section-label">
-                <p class="eyebrow">Awards</p>
-                <h2>Honors and awards</h2>
+                <p class="eyebrow">{{ t('resume.awardsEyebrow') }}</p>
+                <h2>{{ t('resume.awardsTitle') }}</h2>
             </div>
             <div class="section-body section-body--boxed">
                 <div class="resume-awards-list">

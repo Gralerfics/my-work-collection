@@ -6,22 +6,61 @@ import ProjectsView from './components/ProjectsView.vue'
 import ResumeView from './components/ResumeView.vue'
 import SiteNavigation from './components/SiteNavigation.vue'
 import { useHashRoute } from './composables/useHashRoute'
-import { profile, researchFocus, resumeContent } from './content/profileContent'
+import { localizedContent } from './content/localizedContent'
 import { projectConfig } from './content/projectConfig'
 import { projectTabs, projects } from './projects/loadProjects'
+import { useI18n } from './i18n/useI18n'
 
 const { routeName, routeSlug, navigate } = useHashRoute()
+const { locale, localeOptions, setLocale, t, groupLabel } = useI18n()
+
+const localizedSiteContent = computed(() =>
+    localizedContent[locale.value] ?? localizedContent.en,
+)
+
+const profile = computed(() => localizedSiteContent.value.profile)
+const researchFocus = computed(() => localizedSiteContent.value.researchFocus)
+const resumeContent = computed(() => localizedSiteContent.value.resumeContent)
+
+const resolveLocalizedValue = (value) => {
+    if (!value || Array.isArray(value) || typeof value !== 'object') {
+        return value
+    }
+
+    if ('en' in value || 'zh' in value) {
+        return value[locale.value] ?? value.en ?? value.zh
+    }
+
+    return value
+}
+
+const localizedProjects = computed(() =>
+    projects.map((project) => ({
+        ...project,
+        title: resolveLocalizedValue(project.title),
+        subtitle: resolveLocalizedValue(project.subtitle),
+        intro: resolveLocalizedValue(project.intro),
+        tags: resolveLocalizedValue(project.tags) ?? project.tags,
+        status: resolveLocalizedValue(project.status),
+        collaboration: resolveLocalizedValue(project.collaboration),
+        displayGroups: project.groups.map((group) => groupLabel(group)),
+        repositoryLinks: project.repositoryLinks.map((repository) => ({
+            ...repository,
+            label: resolveLocalizedValue(repository.label) ?? (repository.label === 'Repository' ? t('common.repository') : repository.label),
+        })),
+    })),
+)
 
 const currentProject = computed(() => {
-    return projects.find((project) => project.slug === routeSlug.value) ?? projects[0]
+    return localizedProjects.value.find((project) => project.slug === routeSlug.value) ?? localizedProjects.value[0]
 })
 
 watchEffect(() => {
     const titles = {
-        home: `${profile.handle} | Home`,
-        projects: `${profile.handle} | Projects`,
-        resume: `${profile.handle} | Resume`,
-        project: `${currentProject.value.title} | ${profile.handle}`,
+        home: `${profile.value.handle} | ${t('titles.home')}`,
+        projects: `${profile.value.handle} | ${t('titles.projects')}`,
+        resume: `${profile.value.handle} | ${t('titles.resume')}`,
+        project: `${currentProject.value.title} | ${profile.value.handle}`,
     }
 
     document.title = titles[routeName.value]
@@ -34,11 +73,14 @@ watchEffect(() => {
 
         <SiteNavigation
             :active-view="routeName"
-            :projects-label="routeName === 'project' ? currentProject.title : 'Projects'"
+            :projects-label="routeName === 'project' ? currentProject.title : t('nav.projects')"
             :handle="profile.handle"
             :real-name="profile.realName"
             :github-href="profile.github"
+            :locale-options="localeOptions"
+            :current-locale="locale"
             @navigate="navigate"
+            @set-locale="setLocale"
         />
 
         <main class="content-shell">
@@ -46,7 +88,7 @@ watchEffect(() => {
                 v-if="routeName === 'home'"
                 :profile="profile"
                 :research-focus="researchFocus"
-                :projects="projects"
+                :projects="localizedProjects"
                 :home-preview-count="projectConfig.homePreviewCount"
                 @open-project="navigate"
                 @open-projects="navigate('projects')"
@@ -55,7 +97,7 @@ watchEffect(() => {
 
             <ProjectsView
                 v-else-if="routeName === 'projects'"
-                :projects="projects"
+                :projects="localizedProjects"
                 :project-tabs="projectTabs"
                 @open-project="navigate"
             />
@@ -63,7 +105,7 @@ watchEffect(() => {
             <ProjectDetailView
                 v-else-if="routeName === 'project'"
                 :current-project="currentProject"
-                :projects="projects"
+                :projects="localizedProjects"
                 :related-projects-count="projectConfig.relatedProjectsCount"
                 @select-project="navigate"
             />
