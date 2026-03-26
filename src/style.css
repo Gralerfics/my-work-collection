@@ -2161,8 +2161,8 @@ a.education-course-list__main:hover {
     }
 
     .site-header__lang-menu {
-        left: 0;
-        right: auto;
+        left: auto;
+        right: 0;
     }
 
     .site-header__icon {
