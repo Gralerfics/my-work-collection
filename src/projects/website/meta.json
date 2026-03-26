@@ -1,0 +1,11 @@
+{
+    "title": "Portfolio Website",
+    "subtitle": "The project page for the site itself, built mostly through AI-driven implementation",
+    "time": "2026.03",
+    "groups": ["Web"],
+    "status": "Ongoing",
+    "repo": "https://github.com/Gralerfics/my-work-collection",
+    "intro": "A small Vue3 and Vite project for presenting my work which is mostly completed by AI.",
+    "tags": ["Vue3", "Vite", "Frontend", "Generative AI"],
+    "priority": 0
+}
