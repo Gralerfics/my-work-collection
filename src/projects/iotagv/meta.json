@@ -1,0 +1,12 @@
+{
+    "title": "Distributed Communication and Vehicle Control",
+    "subtitle": "An AGV project with distributed communication, localization and obstacle avoidance",
+    "time": "2024.05 - 2024.08",
+    "groups": ["Robotics", "Embedded"],
+    "status": "Completed",
+    "collaboration": "Collaborative Project",
+    "repo": "https://github.com/Ethylene9160/IoTAGV",
+    "intro": "A lightweight multi-AGV prototype focused on demonstration: distributed communication and localization, potential-field-based motion, and a web dashboard for observation and control.",
+    "tags": ["UWB", "Distributed System", "Localization"],
+    "priority": 710
+}
