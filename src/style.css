@@ -1127,8 +1127,8 @@ a.education-course-list__main:hover {
     display: -webkit-box;
     overflow: hidden;
     -webkit-box-orient: vertical;
-    -webkit-line-clamp: 4;
-    line-clamp: 4;
+    -webkit-line-clamp: 5;
+    line-clamp: 5;
 }
 
 .project-card__more {

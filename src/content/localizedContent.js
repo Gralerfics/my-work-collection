@@ -8,7 +8,9 @@ export const localizedContent = {
             email: 'z.wang-107@student.tudelft.nl / glverfer@outlook.com',
             github: 'https://github.com/Gralerfics',
             intro: 'An engineering-oriented Master student working across robotics, signal processing, digital design and embedded systems.',
-            statement: '',
+            statement:
+                // 'Currently interested in Human-robot interaction and reinforcement learning in robotic control.',
+                'Welcome! Please see my resume for more details.',
         },
         researchFocus: [
             'Robotics navigation and control / Human-robot interaction',
@@ -18,7 +20,9 @@ export const localizedContent = {
         ],
         resumeContent: {
             profileStatement: [
-                'TODO.',
+                'I am Zhuoyang (Julian) Wang, currently pursuing a Master\'s degree in Electrical Engineering (Signals and Systems track) at TU Delft.',
+                'I am comfortable with engineering-driven project development and have solid programming experience. I have worked on multiple robotics projects involving navigation and control, and I am familiar with ROS, Linux and related tools. I have also completed several embedded systems and FPGA projects that involved both hardware and software, with exposure to computer architecture, embedded Linux, and hands-on prototyping for validation.',
+                'At this stage, I am particularly interested in the use of multimodal information such as vision and touch in human-robot collaboration, especially how such feedback can improve efficiency, as well as topics like reinforcement learning in active robot navigation and motion control. I am currently looking for a relevant master\'s thesis project or internship.',
             ],
             education: [
                 {
@@ -113,7 +117,7 @@ export const localizedContent = {
             email: 'z.wang-107@student.tudelft.nl / glverfer@outlook.com',
             github: 'https://github.com/Gralerfics',
             intro: '对机器人、信号处理、数字设计与嵌入式系统感兴趣的工程导向开发者。',
-            statement: '',
+            statement: '欢迎浏览个人简历查看详情。',
         },
         researchFocus: [
             '机器人导航与控制 / 人机交互',
@@ -123,7 +127,9 @@ export const localizedContent = {
         ],
         resumeContent: {
             profileStatement: [
-                'TODO.',
+                '我是王卓扬，目前就读于代尔夫特理工大学电气工程硕士项目，信号与系统方向。',
+                '我擅长工程导向的项目开发，具备较丰富的程序设计经验；参与过多个机器人导航与控制项目，熟悉 ROS 等相关技术栈；也做过多个嵌入式 / FPGA 相关的软硬件协同项目，了解计算机组成原理、嵌入式 Linux 等，并且擅长动手做原型验证。',
+                '现阶段，我对人机协作中视觉、触觉等多模态信息的利用与反馈，以及这些信息如何提升协作效率，还有强化学习在机器人主动导航与运动控制中的应用等话题感兴趣，并正在寻找相关的硕士论文项目或实习。',
             ],
             education: [
                 {

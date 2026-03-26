@@ -171,7 +171,7 @@ const { t } = useI18n()
             </div>
             <div class="section-body resume-prose">
                 <p>{{ t('resume.projectsSummary') }}</p>
-                <div>
+                <div style="margin-top: -5px">
                     <button type="button" class="button" @click="emit('open-projects')">
                         {{ t('resume.openProjects') }}
                     </button>
