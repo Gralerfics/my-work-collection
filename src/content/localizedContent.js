@@ -25,7 +25,7 @@ export const localizedContent = {
             profileStatement: [
                 'I am Zhuoyang (Julian) Wang, currently pursuing a Master\'s degree in Electrical Engineering (Signals and Systems track) at TU Delft.',
                 'I am comfortable with engineering-driven project development and have solid programming experience. I have worked on multiple robotics projects involving navigation and control, and I am familiar with ROS, Linux and related tools. I have also completed several embedded systems and FPGA projects that involved both hardware and software, with exposure to computer architecture, embedded Linux, and hands-on prototyping for validation.',
-                'At this stage, I am particularly interested in the use of multimodal information such as vision and touch in human-robot collaboration, especially how such feedback can improve efficiency, as well as topics like reinforcement learning in active robot navigation and motion control. I am currently looking for a relevant master\'s thesis project or internship.',
+                'I am particularly interested in: (1) control theory and reinforcement learning in robot motion planning and control; (2) the use of visual and tactile feedback in human-robot collaboration to improve efficiency. I am currently looking for a relevant master\'s thesis project or internship.',
             ],
             education: [
                 {
