@@ -23,10 +23,19 @@ const projectEntries = Object.entries(metaModules).map(([path, meta]) => {
       ? [meta.group]
       : []
   const repositoryLinks = Array.isArray(meta.repos)
-    ? meta.repos
+    ? meta.repos.map((repository) => ({
+        label: {
+          en: 'Repository',
+          zh: '查看仓库',
+        },
+        ...repository,
+      }))
     : meta.repo
       ? [{
-          label: 'Repository',
+          label: {
+            en: 'Repository',
+            zh: '查看仓库',
+          },
           href: meta.repo,
         }]
       : []

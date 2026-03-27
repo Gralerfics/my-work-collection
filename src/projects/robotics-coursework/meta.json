@@ -8,15 +8,24 @@
     "tags": ["Robotics", "ROS / ROS2", "Navigation", "Control"],
     "repos": [
         {
-            "label": "EE211 Repo",
+            "label": {
+                "en": "EE211 Repo",
+                "zh": "查看 EE211 仓库"
+            },
             "href": "https://github.com/Gralerfics/SUSTech-EE211-Robotic-Perception-and-Intelligence-Laboratory"
         },
         {
-            "label": "EE346 Repo",
+            "label": {
+                "en": "EE346 Repo",
+                "zh": "查看 EE346 仓库"
+            },
             "href": "https://github.com/Gralerfics/SUSTech-EE346-Mobile-Robot-Navigation-and-Control-Laboratory"
         },
         {
-            "label": "EE368 Repo",
+            "label": {
+                "en": "EE368 Repo",
+                "zh": "查看 EE368 仓库"
+            },
             "href": "https://github.com/Gralerfics/SUSTech-EE368-Robotic-Motion-and-Control-Project"
         }
     ],

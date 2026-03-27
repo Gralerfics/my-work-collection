@@ -89,7 +89,7 @@ const messages = {
         titles: { home: '首页', projects: '项目列表', resume: '个人简历' },
         nav: { home: '首页', resume: '个人简历', projects: '项目列表', github: 'GitHub', language: '语言' },
         common: {
-            repository: '仓库',
+            repository: '查看仓库',
             cover: '（封面）',
             close: '关闭',
             moreInfo: '查看更多',

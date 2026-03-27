@@ -490,12 +490,26 @@ h3 {
 }
 
 .hero-panel__title,
-.project-hero__subtitle,
 .resume-hero__title {
     margin-top: 14px;
     color: var(--accent);
     font-family: var(--font-mono);
     font-size: 0.86rem;
+}
+
+.project-hero__subtitle {
+    margin-top: 14px;
+    color: var(--accent);
+    font-family: var(--font-mono), "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Noto Sans CJK SC", sans-serif;
+    font-size: 0.86rem;
+    font-weight: 500;
+    line-height: 1.45;
+}
+
+.project-hero__actions .button svg {
+    width: 0.95rem;
+    height: 0.95rem;
+    flex: 0 0 auto;
 }
 
 .hero-panel__intro,

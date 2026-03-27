@@ -47,7 +47,8 @@ const localizedProjects = computed(() =>
         displayGroups: project.groups.map((group) => groupLabel(group)),
         repositoryLinks: project.repositoryLinks.map((repository) => ({
             ...repository,
-            label: resolveLocalizedValue(repository.label) ?? (repository.label === 'Repository' ? t('common.repository') : repository.label),
+            label: resolveLocalizedValue(repository.label)
+                ?? t('common.repository'),
         })),
     })),
 )
