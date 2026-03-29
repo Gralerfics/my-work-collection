@@ -1,12 +1,27 @@
 {
-    "title": "Navigation and Door-Opening for a Non-Holonomic Mobile Manipulator",
-    "subtitle": "Hierarchical planning and whole-body predictive control in simulation",
+    "title": {
+        "en": "Navigation and Door-Opening for a Non-Holonomic Mobile Manipulator",
+        "zh": "非完整约束移动底盘机械臂的路径规划与运动控制"
+    },
+    "subtitle": {
+        "en": "Hierarchical planning and whole-body predictive control in simulation",
+        "zh": "全局路径规划、局部路径追踪与全身模型预测控制"
+    },
     "time": "2025.11 - 2026.01",
     "groups": ["Robotics"],
-    "status": "Completed",
-    "collaboration": "Collaborative Project",
+    "status": {
+        "en": "Completed",
+        "zh": "已完成"
+    },
+    "collaboration": {
+        "en": "Collaborative Project",
+        "zh": "合作项目"
+    },
     "repo": "https://github.com/martin-gou/pdm_group6",
-    "intro": "The course project for TU Delft Planning and Decision Making. The system combines global planning, MPC-based local control and a door-opening task in PyBullet.",
+    "intro": {
+        "en": "The course project for TU Delft Planning and Decision Making. The system combines global planning, MPC-based local control and a door-opening task in PyBullet.",
+        "zh": "代尔夫特理工大学 Planning and Decision Making 的课程项目。系统实现了基于 RRT 系列算法的全局路径规划以及基于 MPC 和 MPPI 的路径追踪控制器与全身控制器，并在仿真环境中完成导航与开门等验证任务。"
+    },
     "tags": ["MPC / MPPI", "RRT", "Planning", "Simulation", "Coursework"],
     "priority": 900
 }
