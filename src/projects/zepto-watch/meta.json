@@ -1,11 +1,20 @@
 {
     "title": "ZeptoWatch",
-    "subtitle": "An STM32-based touchscreen watch with an application runtime",
+    "subtitle": {
+        "en": "An STM32-based touchscreen watch with an application runtime",
+        "zh": "一款支持运行用户应用程序的 STM32 触屏手表"
+    },
     "time": "2022.10 - 2023.01",
     "groups": ["Embedded"],
-    "status": "Completed",
+    "status": {
+        "en": "Completed",
+        "zh": "已完成"
+    },
     "repo": "https://github.com/Gralerfics/ZeptoWatch",
-    "intro": "A wearable embedded platform built around STM32, covering peripheral integration, system software, GUI, and extensibility.",
+    "intro": {
+        "en": "A wearable embedded platform built around STM32, covering peripheral integration, system software, GUI, and extensibility.",
+        "zh": "一个围绕 STM32 搭建的可穿戴嵌入式平台，涵盖外设集成、系统软件、GUI 以及 Python 脚本运行时。"
+    },
     "tags": ["STM32", "C / C++", "FreeRTOS", "LVGL", "USB 2.0", "FAT"],
     "priority": 800
 }

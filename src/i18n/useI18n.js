@@ -114,7 +114,7 @@ const messages = {
         projects: {
             eyebrow: 'Projects',
             title: '项目索引',
-            intro: '这里是我的部分项目整理，包含个人项目、团体项目、课程作业等。',
+            intro: '这里是我的部分项目整理，包含个人项目、团体项目、课程作业等。部分中文版介绍正在完善中。',
             browseEyebrow: 'Browse',
             filterTitle: '搜索与筛选',
             groupsAria: '项目分类',
