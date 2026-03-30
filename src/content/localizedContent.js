@@ -17,6 +17,7 @@ export const localizedContent = {
         },
         researchFocus: [
             'Robotics navigation and control / Human-robot interaction',
+            'Machine Learning / Reinforcement Learning',
             'Embedded systems and hardware-software co-design / Digital system design',
             'Computer graphics and rendering',
             'Software / framework development',
@@ -130,6 +131,7 @@ export const localizedContent = {
         },
         researchFocus: [
             '机器人导航与控制 / 人机交互',
+            '机器学习 / 强化学习',
             '嵌入式系统软硬件设计 / 数字系统设计',
             '计算机图形与物理模拟',
             '软件 / 框架开发',
