@@ -1,5 +1,5 @@
 <script setup>
-import cornell267Result from './cover.gif'
+import cornell267Result from './assets/cover.gif'
 import prettyHipResult from './assets/pretty-hip-example.gif'
 import discoteq2Result from './assets/discoteq2-example.gif'
 import abstractLevels from './assets/abstract-levels.jpg'

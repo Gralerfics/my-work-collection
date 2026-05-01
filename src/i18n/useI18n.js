@@ -186,7 +186,7 @@ const messages = {
         recipes: {
             eyebrow: 'Recipes',
             title: '食谱',
-            intro: '整理一些可以复现的厨房笔记和家常做法。',
+            intro: '我需要食物。',
             browseEyebrow: 'Browse',
             searchTitle: '搜索食谱',
         },

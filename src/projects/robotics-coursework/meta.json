@@ -2,10 +2,17 @@
     "title": "Robotics Navigation and Control Coursework",
     "subtitle": "Three course projects in mobile navigation, robot perception, and visual servoing",
     "time": "2023.05 - 2024.01",
-    "groups": ["Robotics"],
+    "groups": [
+        "Robotics"
+    ],
     "status": "Completed",
     "intro": "A series of robotics course projects during my bachelor's: waypoint navigation (ROS Nav) with target stopping; navigation (ROS2 Nav2) and manipulation with a robotic arm, and camera-guided servo using a 6-DOF arm.",
-    "tags": ["Robotics", "ROS / ROS2", "Navigation", "Control"],
+    "tags": [
+        "Robotics",
+        "ROS / ROS2",
+        "Navigation",
+        "Control"
+    ],
     "repos": [
         {
             "label": {
@@ -29,5 +36,6 @@
             "href": "https://github.com/Gralerfics/SUSTech-EE368-Robotic-Motion-and-Control-Project"
         }
     ],
-    "priority": 870
+    "priority": 870,
+    "cover": "assets/cover.png"
 }

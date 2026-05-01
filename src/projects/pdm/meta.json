@@ -8,7 +8,9 @@
         "zh": "全局路径规划、局部路径追踪与全身模型预测控制"
     },
     "time": "2025.11 - 2026.01",
-    "groups": ["Robotics"],
+    "groups": [
+        "Robotics"
+    ],
     "status": {
         "en": "Completed",
         "zh": "已完成"
@@ -22,6 +24,13 @@
         "en": "The course project for TU Delft Planning and Decision Making. The system combines global planning, MPC-based local control and a door-opening task in PyBullet.",
         "zh": "代尔夫特理工大学 Planning and Decision Making 的课程项目。系统实现了基于 RRT 系列算法的全局路径规划以及基于 MPC 和 MPPI 的路径追踪控制器与全身控制器，并在仿真环境中完成导航与开门等验证任务。"
     },
-    "tags": ["MPC / MPPI", "RRT", "Planning", "Simulation", "Coursework"],
-    "priority": 900
+    "tags": [
+        "MPC / MPPI",
+        "RRT",
+        "Planning",
+        "Simulation",
+        "Coursework"
+    ],
+    "priority": 900,
+    "cover": "assets/cover.gif"
 }

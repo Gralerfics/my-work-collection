@@ -51,6 +51,25 @@ export function useArticleMedia({
             return []
         }
 
+        const getCaptionText = (image) => {
+            const caption = image.closest('figure')?.querySelector('figcaption')
+            if (!caption) {
+                return ''
+            }
+
+            const explicitCaption = caption.getAttribute('data-lightbox-caption')
+            if (explicitCaption) {
+                return explicitCaption
+            }
+
+            const captionClone = caption.cloneNode(true)
+            captionClone
+                .querySelectorAll('.project-equation__source, .project-equation-inline, svg, script, style')
+                .forEach((node) => node.remove())
+
+            return captionClone.textContent?.replace(/\s+/g, ' ').trim() || ''
+        }
+
         return Array.from(pageRoot.value.querySelectorAll(galleryImageSelector))
             .map((image, index) => ({
                 id: `${index}:${image.currentSrc || image.src}`,
@@ -58,7 +77,7 @@ export function useArticleMedia({
                 alt: image.alt || '',
                 caption: image.classList.contains('project-cover__image')
                     ? t('common.cover')
-                    : image.closest('figure')?.querySelector('figcaption')?.textContent?.trim() || '',
+                    : getCaptionText(image),
             }))
     }
 

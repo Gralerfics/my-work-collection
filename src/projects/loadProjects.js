@@ -10,13 +10,14 @@ const pageModules = import.meta.glob('./*/Page.vue', {
   import: 'default',
 })
 
-const coverModules = import.meta.glob('./*/cover.*', {
+const assetModules = import.meta.glob('./*/assets/*', {
   eager: true,
   import: 'default',
 })
 
 const projectEntries = Object.entries(metaModules).map(([path, meta]) => {
   const slug = path.split('/')[1]
+  const explicitCover = meta.cover ? assetModules[`./${slug}/${meta.cover}`] : null
   const groups = Array.isArray(meta.groups)
     ? meta.groups
     : meta.group
@@ -45,13 +46,7 @@ const projectEntries = Object.entries(metaModules).map(([path, meta]) => {
     ...meta,
     groups,
     repositoryLinks,
-    cover: coverModules[`./${slug}/cover.png`]
-      ?? coverModules[`./${slug}/cover.jpg`]
-      ?? coverModules[`./${slug}/cover.jpeg`]
-      ?? coverModules[`./${slug}/cover.webp`]
-      ?? coverModules[`./${slug}/cover.gif`]
-      ?? coverModules[`./${slug}/cover.svg`]
-      ?? null,
+    cover: explicitCover ?? null,
     pageComponent: pageModules[`./${slug}/Page.vue`],
   }
 })

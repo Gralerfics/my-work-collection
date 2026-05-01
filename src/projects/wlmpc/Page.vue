@@ -586,7 +586,7 @@ import weightSweep from './assets/weight_sweep.png'
             <div class="project-media-grid project-media-grid--two">
                 <figure class="project-media">
                     <img :src="terminalSetSections" alt="Terminal set projections in angle and height planes" />
-                    <figcaption>Fig. 7. Terminal set projections in <InlineMath code="$(theta, dot(theta))$" />, <InlineMath code="$(z_b, dot(z)_b)$" /> and <InlineMath code="$(phi, dot(phi))$" /> planes.</figcaption>
+                    <figcaption data-lightbox-caption="Fig. 7. Terminal set projections in (theta, dot(theta)), (z_b, dot(z)_b), and (phi, dot(phi)) planes.">Fig. 7. Terminal set projections in <InlineMath code="$(theta, dot(theta))$" />, <InlineMath code="$(z_b, dot(z)_b)$" /> and <InlineMath code="$(phi, dot(phi))$" /> planes.</figcaption>
                 </figure>
                 <figure class="project-media">
                     <img :src="lyapunovBoundarySample" alt="Lyapunov decrease along a terminal set boundary sample" />
@@ -601,7 +601,7 @@ import weightSweep from './assets/weight_sweep.png'
             <div class="project-media-grid project-media-grid--two">
                 <figure class="project-media">
                     <img :src="linearDemoX3m" alt="Linear sagittal maneuver showing states and pitch torque" />
-                    <figcaption>Fig. 9. Linear sagittal maneuver showing <InlineMath code="$x_b$" />, <InlineMath code="$dot(x)_b$" />, <InlineMath code="$theta$" />, and <InlineMath code="$T_(p s)$" />. The fluctuations near the starting point are caused by standing regulation instead of the maneuvering.</figcaption>
+                    <figcaption data-lightbox-caption="Fig. 9. Linear sagittal maneuver showing x_b, dot(x)_b, theta, and T_(p s). The fluctuations near the starting point are caused by standing regulation instead of the maneuvering.">Fig. 9. Linear sagittal maneuver showing <InlineMath code="$x_b$" />, <InlineMath code="$dot(x)_b$" />, <InlineMath code="$theta$" />, and <InlineMath code="$T_(p s)$" />. The fluctuations near the starting point are caused by standing regulation instead of the maneuvering.</figcaption>
                 </figure>
                 <figure class="project-media">
                     <img :src="linearDemoMultiexposure" alt="Visualization of the acceleration, cruising, and braking postures" />

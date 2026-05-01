@@ -8,7 +8,9 @@
         "zh": "低成本软件定义无线电接收机 RTL-SDR 硬件复现与验证项目"
     },
     "time": "2023.01 - 2023.02",
-    "groups": ["Embedded"],
+    "groups": [
+        "Embedded"
+    ],
     "status": {
         "en": "Completed",
         "zh": "已完成"
@@ -18,6 +20,11 @@
         "en": "A low-cost software-defined radio receiver project based on RTL-SDR and validated with FM reception.",
         "zh": "手动实现低成本软件定义无线电接收机 RTL-SDR 的硬件设计与验证流程。"
     },
-    "tags": ["SDR", "RF", "Signal Processing"],
-    "priority": 650
+    "tags": [
+        "SDR",
+        "RF",
+        "Signal Processing"
+    ],
+    "priority": 650,
+    "cover": "assets/cover.jpg"
 }
