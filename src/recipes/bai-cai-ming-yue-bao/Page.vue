@@ -17,7 +17,7 @@ import resultE from './assets/cf3bb298401b9a66dc5806d73bc721b1.jpg'
                 <ul class="list-clean bullet-list">
                     <li>白菜</li>
                     <li>鸡蛋</li>
-                    <li>肉片、肉末或其他顺手的肉，基本什么都可以</li>
+                    <li>顺手的肉，牛肉、猪肉都可以</li>
                     <li>盐、糖、蚝油和食用油等</li>
                 </ul>
             </div>
