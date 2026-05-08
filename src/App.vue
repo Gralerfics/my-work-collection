@@ -9,6 +9,8 @@ import RecipeDetailView from './components/RecipeDetailView.vue'
 import RecipesView from './components/RecipesView.vue'
 import ResumeView from './components/ResumeView.vue'
 import SiteNavigation from './components/SiteNavigation.vue'
+import ToolDetailView from './components/ToolDetailView.vue'
+import ToolsView from './components/ToolsView.vue'
 import { trackPageView } from './analytics'
 import { useHashRoute } from './composables/useHashRoute'
 import { localizedContent } from './content/localizedContent'
@@ -16,6 +18,7 @@ import { projectConfig } from './content/projectConfig'
 import { findNoteBySlug, findSectionByPathSlug, notes, notesIndex } from './notes/loadNotes'
 import { projectTabs, projects } from './projects/loadProjects'
 import { recipes } from './recipes/loadRecipes'
+import { toolTabs, tools } from './tools/loadTools'
 import { useI18n } from './i18n/useI18n'
 
 const { routeName, routeSlug, routeExtra, navigate } = useHashRoute()
@@ -70,12 +73,26 @@ const localizedRecipes = computed(() =>
     })),
 )
 
+const localizedTools = computed(() =>
+    tools.map((tool) => ({
+        ...tool,
+        title: resolveLocalizedValue(tool.title),
+        summary: resolveLocalizedValue(tool.summary),
+        tags: resolveLocalizedValue(tool.tags) ?? tool.tags,
+        displayGroups: tool.groups.map((group) => groupLabel(group)),
+    })),
+)
+
 const currentProject = computed(() => {
     return localizedProjects.value.find((project) => project.slug === routeSlug.value) ?? localizedProjects.value[0]
 })
 
 const currentRecipe = computed(() => {
     return localizedRecipes.value.find((recipe) => recipe.slug === routeSlug.value) ?? localizedRecipes.value[0]
+})
+
+const currentTool = computed(() => {
+    return localizedTools.value.find((tool) => tool.slug === routeSlug.value) ?? localizedTools.value[0]
 })
 
 const currentNote = computed(() => findNoteBySlug(routeSlug.value) ?? notes[0] ?? null)
@@ -92,10 +109,12 @@ watchEffect(() => {
         home: `${profile.value.handle} | ${t('titles.home')}`,
         projects: `${profile.value.handle} | ${t('titles.projects')}`,
         recipes: `${profile.value.handle} | ${t('titles.recipes')}`,
+        tools: `${profile.value.handle} | ${t('titles.tools')}`,
         notes: `${profile.value.handle} | ${t('titles.notes')}`,
         resume: `${profile.value.handle} | ${t('titles.resume')}`,
         project: `${currentProject.value.title} | ${profile.value.handle}`,
         recipe: `${currentRecipe.value.title} | ${profile.value.handle}`,
+        tool: `${currentTool.value.title} | ${profile.value.handle}`,
         note: `${currentNoteSection.value?.displayTitle ?? currentNote.value?.title ?? t('titles.notes')} | ${profile.value.handle}`,
     }
 
@@ -163,6 +182,13 @@ watch(
                 @open-recipe="(recipeSlug) => navigate('recipes', [recipeSlug])"
             />
 
+            <ToolsView
+                v-else-if="routeName === 'tools'"
+                :tools="localizedTools"
+                :tool-tabs="toolTabs"
+                @open-tool="(toolSlug) => navigate('tools', [toolSlug])"
+            />
+
             <NoteDetailView
                 v-else-if="routeName === 'note' && currentNote && currentNoteSection"
                 :note="currentNote"
@@ -183,6 +209,11 @@ watch(
                 :current-recipe="currentRecipe"
                 :recipes="localizedRecipes"
                 @select-recipe="(recipeSlug) => navigate('recipes', [recipeSlug])"
+            />
+
+            <ToolDetailView
+                v-else-if="routeName === 'tool'"
+                :current-tool="currentTool"
             />
 
             <ResumeView

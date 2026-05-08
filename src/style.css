@@ -1349,6 +1349,230 @@ html[lang="zh-CN"] .resume-award-item h3 {
     background: rgba(255, 255, 255, 0.56);
 }
 
+.tool-stage {
+    display: grid;
+    width: 100%;
+    min-width: 0;
+}
+
+.tool-stage--wide {
+    width: 100%;
+}
+
+.tool-stage__missing {
+    padding: 22px 24px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.56);
+}
+
+.aliasing-demo {
+    display: grid;
+    gap: 18px;
+}
+
+.aliasing-panel {
+    display: grid;
+    gap: 16px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.68);
+    box-shadow: var(--shadow);
+}
+
+.aliasing-panel--intro {
+    gap: 20px;
+}
+
+.aliasing-panel__header {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 20px;
+    align-items: start;
+}
+
+.aliasing-panel__header h2 {
+    margin-top: 8px;
+}
+
+.aliasing-panel__header p:not(.eyebrow) {
+    max-width: 58rem;
+    margin-top: 10px;
+    color: var(--text-muted);
+}
+
+.aliasing-status {
+    display: grid;
+    gap: 4px;
+    min-width: 172px;
+    padding: 12px 14px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-family: var(--font-mono);
+    font-size: 0.86rem;
+    background: rgba(255, 255, 255, 0.76);
+}
+
+.aliasing-status span {
+    font-family: var(--font-sans);
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.aliasing-status.is-stable {
+    color: #226744;
+    border-color: rgba(34, 103, 68, 0.22);
+    background: rgba(230, 246, 237, 0.72);
+}
+
+.aliasing-status.is-unstable {
+    color: #9b3f3f;
+    border-color: rgba(155, 63, 63, 0.24);
+    background: rgba(250, 232, 232, 0.78);
+}
+
+.aliasing-controls {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+}
+
+.aliasing-control {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 10px 16px;
+    align-items: center;
+    padding: 14px 16px;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: rgba(247, 249, 251, 0.74);
+}
+
+.aliasing-control span {
+    color: var(--title);
+    font-weight: 600;
+}
+
+.aliasing-control strong {
+    color: var(--accent);
+    font-family: var(--font-mono);
+    font-size: 0.92rem;
+}
+
+.aliasing-control input {
+    grid-column: 1 / -1;
+    width: 100%;
+    accent-color: var(--accent);
+}
+
+.aliasing-presets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.aliasing-presets .button {
+    min-height: 36px;
+    padding: 0 12px;
+    font-size: 0.86rem;
+}
+
+.aliasing-eigenvalues,
+.aliasing-notes p {
+    color: var(--text-muted);
+}
+
+.aliasing-eigenvalues code {
+    color: var(--title);
+    font-family: var(--font-mono);
+}
+
+.aliasing-chart-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.aliasing-panel h3 {
+    font-size: 1rem;
+}
+
+.aliasing-chart {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+}
+
+.aliasing-chart__bg {
+    fill: rgba(255, 255, 255, 0.74);
+}
+
+.aliasing-chart__grid {
+    stroke: rgba(39, 54, 74, 0.1);
+}
+
+.aliasing-chart__axis {
+    stroke: rgba(39, 54, 74, 0.28);
+}
+
+.aliasing-chart__line {
+    fill: none;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.aliasing-chart__line--blue {
+    stroke: #2878b8;
+}
+
+.aliasing-chart__line--orange {
+    stroke: #d47a2a;
+}
+
+.aliasing-chart__threshold,
+.aliasing-chart__marker-line {
+    stroke: rgba(68, 84, 105, 0.58);
+    stroke-dasharray: 6 6;
+}
+
+.aliasing-chart__marker-line {
+    stroke: rgba(155, 63, 63, 0.62);
+}
+
+.aliasing-chart__marker,
+.aliasing-chart__sample {
+    fill: #d47a2a;
+    stroke: #fff;
+    stroke-width: 1.5;
+}
+
+.aliasing-chart__marker {
+    fill: #9b3f3f;
+    stroke-width: 2;
+}
+
+.aliasing-chart__tick,
+.aliasing-chart__axis-label,
+.aliasing-chart__label,
+.aliasing-chart__legend text {
+    fill: var(--text-muted);
+    font-family: var(--font-sans);
+    font-size: 12px;
+}
+
+.aliasing-chart__label {
+    fill: #9b3f3f;
+}
+
+.aliasing-notes {
+    gap: 10px;
+}
+
 .project-list {
     display: grid;
     gap: 10px;
@@ -2794,6 +3018,16 @@ html[lang="zh-CN"] .resume-award-item h3 {
     .side-grid,
     .metrics-grid,
     .resume-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .tool-stage--wide {
+        width: 100%;
+    }
+
+    .aliasing-panel__header,
+    .aliasing-controls,
+    .aliasing-chart-grid {
         grid-template-columns: 1fr;
     }
 

@@ -1,0 +1,8 @@
+{
+    "title": "Sampled-Data Aliasing Demo",
+    "summary": "An interactive visualization of stability switching and intersample behavior in a zero-order-hold sampled-data system.",
+    "groups": ["Signal Processing", "Control"],
+    "tags": ["Sampled-data systems", "Aliasing", "ZOH", "Eigenvalues"],
+    "priority": 100,
+    "layout": "wide"
+}
