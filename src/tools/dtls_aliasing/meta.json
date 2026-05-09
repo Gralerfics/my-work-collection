@@ -1,8 +1,16 @@
 {
-    "title": "Sampled-Data Aliasing Demo",
-    "summary": "An interactive visualization of stability switching and intersample behavior in a zero-order-hold sampled-data system.",
+    "title": {
+        "en": "Sampled-Data Aliasing Demo",
+        "zh": "采样数据混叠演示"
+    },
+    "summary": {
+        "en": "An interactive visualization of stability switching and intersample behavior in a zero-order-hold sampled-data system.",
+        "zh": "一个用于观察零阶保持采样数据系统中稳定性切换与采样间行为的交互式演示。"
+    },
     "groups": ["Signal Processing", "Control"],
-    "tags": ["Sampled-data systems", "Aliasing", "ZOH", "Eigenvalues"],
-    "priority": 100,
-    "layout": "wide"
+    "tags": {
+        "en": ["Sampled-data systems", "Aliasing", "ZOH", "Eigenvalues"],
+        "zh": ["采样数据系统", "混叠", "零阶保持", "特征值"]
+    },
+    "priority": 100
 }
