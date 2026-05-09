@@ -1388,13 +1388,11 @@ html[lang="zh-CN"] .resume-award-item h3 {
 
 .aliasing-panel__header {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) auto;
-    gap: 20px;
-    align-items: start;
+    gap: 12px;
 }
 
 .aliasing-panel__header h2 {
-    margin-top: 8px;
+    margin-top: 0;
 }
 
 .aliasing-panel__header p:not(.eyebrow) {
@@ -1403,23 +1401,43 @@ html[lang="zh-CN"] .resume-award-item h3 {
     color: var(--text-muted);
 }
 
-.aliasing-status {
+.aliasing-formula-text {
     display: grid;
-    gap: 4px;
-    min-width: 172px;
-    padding: 12px 14px;
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    font-family: var(--font-mono);
-    font-size: 0.86rem;
-    background: rgba(255, 255, 255, 0.76);
+    gap: 6px;
+    margin-top: 14px;
+    color: var(--text-muted);
+    line-height: 1.6;
 }
 
-.aliasing-status span {
-    font-family: var(--font-sans);
-    font-size: 0.78rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
+.aliasing-formula-text p {
+    margin: 0;
+}
+
+.aliasing-formula-text .project-equation {
+    margin: 0 0 4px;
+    padding-inline: 0;
+}
+
+.aliasing-formula-text .project-equation__body {
+    justify-content: flex-start;
+    padding: 2px 0;
+}
+
+.aliasing-status {
+    display: inline-flex;
+    align-items: center;
+    justify-self: start;
+    width: auto;
+    max-width: 100%;
+    min-height: 36px;
+    margin: 0;
+    padding: 0 12px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-family: var(--font-mono);
+    font-size: 0.86rem;
+    white-space: nowrap;
+    background: rgba(255, 255, 255, 0.76);
 }
 
 .aliasing-status.is-stable {
@@ -1466,18 +1484,6 @@ html[lang="zh-CN"] .resume-award-item h3 {
     grid-column: 1 / -1;
     width: 100%;
     accent-color: var(--accent);
-}
-
-.aliasing-presets {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.aliasing-presets .button {
-    min-height: 36px;
-    padding: 0 12px;
-    font-size: 0.86rem;
 }
 
 .aliasing-eigenvalues,
@@ -3029,6 +3035,10 @@ html[lang="zh-CN"] .resume-award-item h3 {
     .aliasing-controls,
     .aliasing-chart-grid {
         grid-template-columns: 1fr;
+    }
+
+    .aliasing-status {
+        white-space: normal;
     }
 
     .section-label {
