@@ -25,7 +25,7 @@ export const localizedContent = {
             profileStatement: [
                 'I am Zhuoyang (Julian) Wang, currently pursuing a Master\'s degree in Electrical Engineering (Signals and Systems track) at TU Delft.',
                 'I am comfortable with engineering-driven project development and have solid programming experience. I have worked on multiple robotics projects involving navigation and control, and I am familiar with ROS, Linux and related tools. I have also completed several embedded systems and FPGA projects that involved both hardware and software, with exposure to computer architecture, embedded Linux, and hands-on prototyping for validation.',
-                'I am particularly interested in: (1) control theory and reinforcement learning in robot motion planning and control; (2) the use of visual and tactile feedback in human-robot collaboration to improve efficiency. I am currently looking for a relevant master\'s thesis project or internship.',
+                'I am particularly interested in control theory and reinforcement learning in robot motion planning and control and currently looking for a relevant master\'s thesis project or internship.',
             ],
             education: [
                 {
@@ -109,9 +109,9 @@ export const localizedContent = {
                 // },
             ],
             skills: [
-                { title: 'Programming', detail: 'C, Python, C++, VHDL, JavaScript, etc.' },
-                { title: 'Robotics', detail: 'ROS and ROS2 experiences; simulators (gym, Webots, etc).' },
-                { title: 'Embedded system', detail: ['Soldering, assembly, PCB design, and hardware debugging;', 'STM32, FPGA, common sensors and modules, RTOS, Linux.'] },
+                { title: 'Programming', detail: 'Proficient in Python, C, VHDL; experienced with C++, Java; familiar with JavaScript / Vue3, etc.' },
+                { title: 'Platform', detail: 'Experienced with Linux, ROS / ROS2, MuJoCo, PyBullet; familiar with PyTorch, JAX, SB3, RLlib; worked with real robotic arms / mobile robots, etc.' },
+                { title: 'Embedded', detail: 'Soldering, assembly, PCB design, and hardware debugging; STM32, FPGA, common sensors and modules, RTOS, Linux.' },
                 { title: 'Other', detail: 'Adobe Illustrator, SolidWorks.' },
             ],
             honors: [
@@ -142,7 +142,7 @@ export const localizedContent = {
             profileStatement: [
                 '我是王卓扬，目前就读于代尔夫特理工大学电气工程硕士项目，信号与系统方向。',
                 '我擅长工程导向的项目开发，具备较丰富的程序设计经验；参与过多个机器人导航与控制项目，熟悉 ROS 等相关技术栈；也做过多个嵌入式 / FPGA 相关的软硬件协同项目，了解计算机组成原理、嵌入式 Linux 等，并且擅长动手做原型验证。',
-                '现阶段我感兴趣的是机器人运动控制中的控制理论和强化学习应用、在人机协作中利用视觉和触觉反馈来提高效率等话题。我目前正在寻找相关的硕士论文项目与实习。',
+                '现阶段我感兴趣的是机器人运动控制中的控制理论和强化学习应用，并正在寻找相关的硕士论文项目与实习。',
             ],
             education: [
                 {
@@ -226,9 +226,9 @@ export const localizedContent = {
                 // },
             ],
             skills: [
-                { title: '程序设计', detail: 'C、Python、C++、VHDL、JavaScript 等。' },
-                { title: '机器人', detail: 'ROS 和 ROS2 项目经验；gym、Webots 等仿真环境使用经验。' },
-                { title: '嵌入式', detail: ['焊接、装配、PCB 设计与硬件调试；', 'STM32、FPGA、常见传感器与模块、RTOS、Linux。'] },
+                { title: '程序设计', detail: '熟练掌握 Python、C、VHDL；熟悉 C++、Java；了解 JavaScript / Vue3 等；追求高质量代码与架构。' },
+                { title: '平台/框架', detail: '熟悉 Linux、ROS / ROS2 等平台及 PyTorch、JAX、SB3、RLlib 等框架的使用；MuJoCo、PyBullet 等仿真经验；实际机械臂、移动机器人等的调试经验。' },
+                { title: '嵌入式', detail: '熟悉微控制器和嵌入式系统（STM32 等）及FPGA开发；嵌入式 Linux、FreeRTOS 使用经验；熟悉焊锡、组装、简单 PCB 设计与硬件调试。' },
                 { title: '其他', detail: 'Adobe Illustrator、SolidWorks 等。' },
             ],
             honors: [
