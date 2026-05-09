@@ -38,6 +38,14 @@ function readHash(currentRoute = { name: 'home', slug: null, extra: [] }) {
         return { name: 'recipe', slug, extra }
     }
 
+    if (section === 'tools' && !slug) {
+        return { name: 'tools', slug: null, extra: [] }
+    }
+
+    if (section === 'tools' && slug) {
+        return { name: 'tool', slug, extra }
+    }
+
     if (section === 'resume') {
         return { name: 'resume', slug: null, extra: [] }
     }
@@ -94,6 +102,11 @@ export function useHashRoute() {
 
         if (target === 'recipes') {
             window.location.hash = '/recipes'
+            return
+        }
+
+        if (target === 'tools') {
+            window.location.hash = '/tools'
             return
         }
 

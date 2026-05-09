@@ -46,6 +46,7 @@ const items = computed(() => [
     { key: 'resume', label: t('nav.resume') },
     { key: 'notes', label: t('nav.notes') },
     { key: 'recipes', label: t('nav.recipes') },
+    { key: 'tools', label: t('nav.tools') },
 ])
 
 const currentLocaleOption = computed(() =>
@@ -119,7 +120,7 @@ onBeforeUnmount(() => {
                         :key="item.key"
                         type="button"
                         class="site-header__link"
-                        :class="{ 'is-active': activeView === item.key || (item.key === 'notes' && activeView === 'note') || (item.key === 'recipes' && activeView === 'recipe') }"
+                        :class="{ 'is-active': activeView === item.key || (item.key === 'notes' && activeView === 'note') || (item.key === 'recipes' && activeView === 'recipe') || (item.key === 'tools' && activeView === 'tool') }"
                         @click="emit('navigate', item.key)"
                     >
                         {{ item.label }}
